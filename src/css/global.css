@@ -1,0 +1,61 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #77BFA3;
+  height: 100vh;
+  border: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  
+}
+
+body{
+  margin: 0;
+}
+
+
+/* 
+
+ #2B60C2;
+.bxLogin {
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+ 
+}
+
+.bxLoginImagen{
+  background-color: #2356BF;
+  border-radius: 20px 0px 0px 20px;
+ 
+
+}
+
+.bxLoginInput{
+  background-color: #EEF1F8;
+  border-radius: 0px 20px 20px 0px;
+
+}
+
+@media screen and (max-width: 900px) {
+  .media-div{
+  display:none;
+  }
+
+  html{
+    background-color: #EEF1F8;
+    height: 100vh;
+  }
+
+
+  }
+
+
+
+ */
