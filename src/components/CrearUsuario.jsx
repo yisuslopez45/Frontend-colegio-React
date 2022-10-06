@@ -24,8 +24,8 @@ const button = {
 const input = {
     '&.Mui-focused': {
         backgroundColor: 'transparent',
-        borderColor:"#748CCE"
-      },
+        borderColor: "#748CCE"
+    },
 }
 
 
@@ -63,13 +63,13 @@ const CrearUsuario = () => {
             case 1: return (
                 <>
                     <Grid item lg={6} padding={1}     >
-                        <TextField sx={input}  fullWidth id="outlined-basic" label="Nombres" variant="outlined" />
+                        <TextField sx={input} fullWidth id="outlined-basic" label="Nombres" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}   >
-                        <TextField fullWidth id="outlined-basic" label="Apellidos" variant="outlined"   />
+                        <TextField fullWidth id="outlined-basic" label="Apellidos" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} padding={1} textAlign="center"  >
-                        <TextField fullWidth id="outlined-basic" label="Direccion" variant="outlined"   />
+                        <TextField fullWidth id="outlined-basic" label="Direccion" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}     >
                         <TextField fullWidth id="outlined-basic" label="Telefono" variant="outlined" />
@@ -102,7 +102,7 @@ const CrearUsuario = () => {
                 <>
                     <Grid item lg={6} padding={1}     >
                         <FormControl fullWidth  >
-                            <InputLabel   id="demo-simple-select-label">Nacionalidad</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -225,12 +225,19 @@ const CrearUsuario = () => {
 
         <Grid container direction="column" >
 
-            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={20} paddingBottom={15} >
+            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={15} paddingBottom={15} >
 
                 <Grid item style={{ width: "600px" }} >
 
 
-                    <Grid container direction="row" alignItems="center" justifyContent='center' >
+
+                    <Grid container direction="row" alignItems="center" justifyContent='center' padding={5}>
+
+                        <Grid item padding={1} textAlign="center" paddingBottom={5}  >
+                            <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
+                                Crear Usuario
+                            </Typography>
+                        </Grid>
 
                         <Box sx={{ width: '100%' }}>
                             <Stepper activeStep={activeStep}>
@@ -256,14 +263,14 @@ const CrearUsuario = () => {
                                 <React.Fragment>
                                     <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5}>
                                         <Grid item >
-                                            <Typography style={{fontSize:"25px",fontWeight:"bold"}} >
+                                            <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                                 Completo el registro correctamente
                                             </Typography>
                                         </Grid>
 
                                         <Grid item  >
-                                        <CardMedia
-                                                
+                                            <CardMedia
+
                                                 component="img"
                                                 src={imagenSend}
                                                 alt="green"
@@ -274,8 +281,8 @@ const CrearUsuario = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Box sx={{ display: 'flex', flexDirection: 'row' , justifyContent:"center" , pt: 2 }}>
-                                        
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center", pt: 2 }}>
+
                                         <Button bor sx={button2} onClick={handleReset}>Reset</Button>
                                     </Box>
                                 </React.Fragment>
@@ -310,8 +317,10 @@ const CrearUsuario = () => {
                                 </React.Fragment>
                             )}
                         </Box>
-                       
+
                     </Grid>
+
+
 
                 </Grid>
 

@@ -43,7 +43,7 @@ const useStyle = {
 
 
 
-const PagosDocente = () => {
+const Admin = () => {
 
 
   return (
@@ -134,4 +134,4 @@ const PagosDocente = () => {
   )
 }
 
-export default PagosDocente
+export default Admin

@@ -1,11 +1,15 @@
 
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import AsignarDocente from "./components/AsignarDocente";
 import CrearUsuario from "./components/CrearUsuario";
 
 import { Login } from './components/Login';
 import { Navbar } from './components/Navbar'
-import PagosDocente from "./components/PagosDocente";
+import Admin from "./components/Admin";
+import InformeAdmin from "./components/InformeAdmin";
+import CrearRegistro from "./components/CrearRegistro";
+import EditarRegistro from "./components/EditarRegistro";
 
 const App = () => {
   return <>
@@ -15,10 +19,14 @@ const App = () => {
       <Navbar/>
 
       <Routes>
-        <Route path="/" element={<Login/>} />
-        <Route path='/AdminDocente' element={<Navbar />} />
-        <Route path="/PagoDocente" element={<PagosDocente/>}/>
+        <Route path="/Login" element={<Login/>} />
+        <Route path='/Admin' element={<Admin />} />
+        <Route path="/InformeAdmin" element={<InformeAdmin/>}/>
         <Route path="/CrearUsuario" element={<CrearUsuario/>}/>
+        <Route path="/Semestre" element={<AsignarDocente/>}/>
+        <Route path="/CrearRegistro" element={<CrearRegistro/>}/>
+        <Route path="/EditarRegistro" element={<EditarRegistro/>}/>
+      
         
       </Routes>
 
