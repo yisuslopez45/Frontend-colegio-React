@@ -1,9 +1,10 @@
 
-import { Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axiosClient from '../config/AxiosClient'
 import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
 
@@ -47,6 +48,70 @@ const button2 = {
 
 const AsignarDocente = () => {
 
+    const [listMaterias, setlistaMaterias] = useState([])
+    const [docentes, setDocentes] = useState([])
+    const [notificacion, setNotificacion] = useState(0)
+
+    const [datosUsuario, setdatosUsuario] = useState({
+        intencidad: "",
+        id_materia: "",
+        id_docente: "",
+        precio_hora: "",
+        semestre: ""
+
+    })
+
+    const { id_materia, precio_hora, intencidad, id_docente, semestre } = datosUsuario
+
+    const queryGet = async (url, funcion) => {
+
+        try {
+            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            const { data } = await axiosClient.get(url);
+
+            funcion(data.data)
+
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    const queryPost = async () => {
+
+        console.log(datosUsuario)
+
+        try {
+            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            const { data } = await axiosClient.post("/crearProSemestre", datosUsuario);
+
+            console.log(data)
+            if (data.code === 1) {
+                setNotificacion(1)
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        queryGet('/consultarMaterias', setlistaMaterias)
+    }, [])
+
+    useEffect(() => {
+        queryGet(`/consultarDocentesMateria/${id_materia}`, setDocentes)
+    }, [id_materia])
+
+
+    const handleChange = (e) => {
+
+        setdatosUsuario({
+            ...datosUsuario,
+            [e.target.name]: e.target.value
+        })
+
+    }
 
 
     return (
@@ -57,88 +122,120 @@ const AsignarDocente = () => {
 
                 <Grid item style={{ width: "600px" }} >
 
-                 
 
-                        <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
-                            <Grid item lg={12} padding={1} textAlign="center"  paddingBottom={5}  >
-                                <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
-                                    Programación Semestre
-                                </Typography>
-                            </Grid>
-                            <Grid item lg={6} padding={1}     >
-                                <FormControl fullWidth  >
-                                    <InputLabel id="demo-simple-select-label">Asignatura</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
 
-                                        label="Asignatura"
+                    <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
+                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}  >
+                            <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
+                                Programación Semestre
+                            </Typography>
+                        </Grid>
+                        <Grid item lg={6} padding={1}     >
+                            <FormControl fullWidth  >
+                                <InputLabel id="demo-simple-select-label">Materia</InputLabel>
+                                <Select
+                                    value={id_materia}
+                                    onChange={handleChange}
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    name="id_materia"
+                                    label="Asignatura"
 
-                                    >
-                                        <MenuItem value={1}>Matematcias</MenuItem>
-                                        <MenuItem value={2}>Ingles</MenuItem>
+                                >
 
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item lg={6} padding={1}   >
-                                <FormControl fullWidth  >
-                                    <InputLabel id="demo-simple-select-label">Intensidad Curso</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
+                                    {listMaterias.map(x => (
+                                        <MenuItem value={x.id_materia} key={x.id_materia}>{x.asignatura}</MenuItem>
+                                    ))}
 
-                                        label="Intensidad Curso"
 
-                                    >
-                                        <MenuItem value={1}>1 Hora</MenuItem>
-                                        <MenuItem value={2}>2 Hora</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item lg={6} padding={1}   >
+                            <FormControl fullWidth  >
+                                <InputLabel id="demo-simple-select-label">Intensidad Curso</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    name='intencidad'
+                                    value={intencidad}
+                                    label="Intensidad Curso"
+                                    onChange={handleChange}
 
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item lg={12} padding={1} textAlign="center"  >
-                                <FormControl fullWidth  >
-                                    <InputLabel id="demo-simple-select-label">Semestre a cursar</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
+                                >
+                                    <MenuItem value={1}>1 Horas</MenuItem>
+                                    <MenuItem value={2}>2 Horas</MenuItem>
+                                    <MenuItem value={3}>3 Horas</MenuItem>
+                                    <MenuItem value={4}>4 Horas</MenuItem>
+                                    <MenuItem value={5}>5 Horas</MenuItem>
+                                    <MenuItem value={6}>6 Horas</MenuItem>
 
-                                        label="Semestre a cursar"
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item lg={12} padding={1} textAlign="center"  >
+                            <FormControl fullWidth  >
+                                <InputLabel id="demo-simple-select-label">Semestre a cursar</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={semestre}
+                                    name="semestre"
+                                    label="Semestre a cursar"
+                                    onChange={handleChange}
 
-                                    >
-                                        <MenuItem value={1}>Primero</MenuItem>
-                                        <MenuItem value={2}>Segundo</MenuItem>
-                                        <MenuItem value={2}>Tercero</MenuItem>
+                                >
+                                    <MenuItem value={"Primero"}>Primero</MenuItem>
+                                    <MenuItem value={"Segundo"}>Segundo</MenuItem>
+                                    <MenuItem value={"Tercero"}>Tercero</MenuItem>
+                                    <MenuItem value={"Cuarto"}>Cuarto</MenuItem>
+                                    <MenuItem value={"Quinto"}>Quinto</MenuItem>
+                                    <MenuItem value={"Sexto"}>Sexto</MenuItem>
+                                    <MenuItem value={"Septimo"}>Septimo</MenuItem>
+                                    <MenuItem value={"Octavo"}>Octavo</MenuItem>
+                                    <MenuItem value={"Noveno"}>Noveno</MenuItem>
+                                    <MenuItem value={"Decimo"}>Decimo</MenuItem>
 
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item lg={12} padding={1}     >
-                                <FormControl fullWidth  >
-                                    <InputLabel id="demo-simple-select-label">Docente a cargo</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
 
-                                        label="Semestre a cursar"
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item lg={12} padding={1}     >
+                            <TextField fullWidth value={precio_hora} onChange={handleChange} id="outlined-basic" name='precio_hora' label="Precio Hora" variant="outlined" />
+                        </Grid>
+                        <Grid item lg={12} padding={1}     >
+                            <FormControl fullWidth  >
+                                <InputLabel id="demo-simple-select-label">Docente a cargo</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    name='id_docente'
+                                    value={id_docente}
+                                    label="Semestre a cursar"
+                                    onChange={handleChange}
+                                >
 
-                                    >
-                                        <MenuItem value={1}>Miguel</MenuItem>
-                                        <MenuItem value={2}>Pablo</MenuItem>
-                                        <MenuItem value={2}>Carlos</MenuItem>
+                                    {docentes.map(x => (
+                                        <MenuItem value={x.id_usuario} key={x.id_usuario}>{x.nombre} {x.apellido}</MenuItem>
+                                    ))}
 
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                    
-                            <Grid item lg={12} padding={1} textAlign="center"    >
-                                <Button size="large" sx={button2} variant="contained">Crear Semestre</Button>
-                            </Grid>
-
+                                </Select>
+                            </FormControl>
                         </Grid>
 
-              
+                        <Grid item lg={12} padding={1} textAlign="center"    >
+                            <Button size="large" onClick={() => { queryPost() }} sx={button2} variant="contained">Crear Semestre</Button>
+                        </Grid>
+
+                    </Grid>
+
+                    {
+                        notificacion === 1 && (
+                            <Alert variant="filled" severity="success">
+                                Se creo el registro correctamente
+                            </Alert>
+                        )
+                    }
 
                 </Grid>
 

@@ -1,6 +1,7 @@
 
 import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system';
+import { useSnackbar } from 'notistack';
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from 'react'
@@ -51,6 +52,8 @@ const CrearUsuario = () => {
     const [listProfesion, setlistaProfesion] = useState([])
     const [listMaterias, setlistaMaterias] = useState([])
     const [banderaPassword, setBanderaPassword] = useState(false)
+    const [notificacion, setNotificacion] = useState(0)
+
     const [datosUsuario, setdatosUsuario] = useState({
         nombres: "",
         apellidos: "",
@@ -63,11 +66,12 @@ const CrearUsuario = () => {
         id_materia: "",
         password: "",
         password2: "",
-        cod_rol :""
-
+        cod_rol :"",
+        correo:""
+        
     })
 
-    const { nombres, apellidos, direccion, telefono, cedula, id_sexo, ciudad, id_profesion, id_materia, password,password2 , cod_rol} = datosUsuario
+    const { nombres, apellidos, direccion, telefono, cedula, id_sexo, ciudad, id_profesion, id_materia, password,password2 , cod_rol, correo} = datosUsuario
 
     const queryGet = async (url, funcion) => {
 
@@ -90,9 +94,14 @@ const CrearUsuario = () => {
             const { data } = await axiosClient.post('/crearUsuario',datosUsuario);
 
             console.log(data)
+            if(data.code === "1"){
+                setNotificacion(1)
+            }else{
+                setNotificacion(2)
+            }
 
         } catch (err) {
-            console.log(err)
+            setNotificacion(2)
         }
 
     }
@@ -231,6 +240,7 @@ const CrearUsuario = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+                   
                     <Grid item lg={6} padding={1}   >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Materia</InputLabel>
@@ -260,6 +270,9 @@ const CrearUsuario = () => {
                         </LocalizationProvider> */}
 
                     </Grid>
+                    <Grid item lg={12} padding={1}     >
+                        <TextField sx={input} fullWidth value={correo} onChange={handleChange} id="outlined-basic" name='correo' label="Correo" variant="outlined" />
+                    </Grid>
                     <Grid item lg={6} padding={1} textAlign="center"    >
                         <TextField value={password} required fullWidth id="outlined-basic" label="Contraseña" onChange={handleChange} name='password' variant="outlined" />
                     </Grid>
@@ -275,13 +288,21 @@ const CrearUsuario = () => {
     }
     const handleNext = () => {
         let newSkipped = skipped;
+
+        
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(activeStep);
         }
-
+        
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
+        console.log(activeStep)
+        console.log(steps.length-1)
+
+        if(activeStep === steps.length - 1 ){
+            queryPost()
+        }  
     };
 
     const handleBack = () => {
@@ -302,6 +323,7 @@ const CrearUsuario = () => {
     };
 
     const handleReset = () => {
+        setNotificacion(0)
         setActiveStep(0);
     };
 
@@ -413,6 +435,21 @@ const CrearUsuario = () => {
                         )
                     }
 
+                    {
+                        notificacion === 1 && (
+                            <Alert  variant="filled" severity="success">
+                                Se registro el usuario Correctamente
+                          </Alert>
+                        )
+                    }
+
+{
+                        notificacion === 2 && (
+                            <Alert variant="filled" severity="error">
+                            Ocurrio un error en el registro
+                          </Alert>
+                        )
+                    }
 
 
 
