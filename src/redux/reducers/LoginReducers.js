@@ -7,7 +7,8 @@ const initialState = {
     loading: false,
     message: '',
     code : '',
-    error : ''
+    error : '',
+    rol: ''
 
 }
 
@@ -22,8 +23,9 @@ export default function loginReducers (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                nombre_usuario: action.payload,
-                message: 'correo correcto',
+                nombre_usuario: action.payload.nombreUsuario,
+                message:  action.payload.msg,
+                rol :  action.payload.idRol,
                 code : '1',
 
             }

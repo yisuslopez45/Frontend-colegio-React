@@ -1,142 +1,163 @@
-import { Button, Card, CardMedia, FormControl, Grid, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Alert, AlertTitle, Button, Card, CardMedia, FormControl, Grid, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 //ICON
-import logo from '../img/lunch.svg';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 import { loginIniciar } from '../redux/action/LoginAction';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const Login = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"))
+  const { code, message, rol } = useSelector(state => state.login)
+  const [dataLogin, setDataLogin] = useState({
+    correo: "",
+    password: ""
+  })
 
-  const data = {
-    correo: "davidlopez@gmail.com",
-    password: "12343"
+  console.log(code)
+
+  useEffect(() => {
+    if (rol === 2) {
+      return navigate("/Admin")
+    }
+
+    if (rol === 1) {
+      return navigate("/Docente")
+    }
+
+  }, [rol, navigate]);
+
+  const handleChange = (e) => {
+
+    setDataLogin({
+      ...dataLogin,
+      [e.target.name]: e.target.value
+    })
   }
+
+
 
   return (
     <Grid container direction='row' justifyContent='center' marginTop={isMatch ? 10 : 25} alignItems='center' >
 
 
-
-    
-
-      {/* <Grid item md={6} sx={12}   style={{backgroundColor:"#2356BF", borderRadius: " 20px 0px 0px 20px"  }}  >
-   
-        <Grid container justifyContent='center' alignItems='center' style={{ height: "800px" }} >
-
-          <Grid item  sx={12} height="600px" >
-          <CardMedia
-            component="img"
-            src={logo}
-            alt="green"
-            height="100%"
-            width="100%"
-
-          />
-          </Grid>
-
-        </Grid>
-
-
-
-      </Grid> */}
-
-      <Grid item md={6} sx={12}  style={{backgroundColor:"#77bfa3" ,  borderRadius:"20px 20px 20px 20px"}} >
+      <Grid item md={6} sx={12} style={{ backgroundColor: "#77bfa3", borderRadius: "20px 20px 20px 20px" }} >
 
 
         <Grid container justifyContent='center' alignItems='center' style={{ height: "800px" }} >
 
           <Paper elevation={isMatch ? 5 : 4}  >
 
-          <Grid item  sx={12} md={12} height="600px" padding={10} >
-           
-            <FormControl fullWidth variant="outlined" style={{ alignItems: 'center' }}>
+            <Grid item sx={12} md={12} height="600px" padding={10} >
 
-              <Typography
-                variant='h4'
-              >
-                Bienvenido
-              </Typography>
+              <FormControl fullWidth variant="outlined" style={{ alignItems: 'center' }}>
 
-              <TextField style={{ marginTop: '20px', width: '400px' }}
-                type='email'
-                id="outlined-basic"
-                label="Correo"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                    >
-                      <AlternateEmailIcon />
-                    </IconButton>
-                  ),
-                }}
-              />
-
-              <TextField
-                style={{ marginTop: '10px', width: '400px' }}
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                    >
-                      <LockOpenIcon />
-                    </IconButton>
-                  ),
-                }}
-
-              />
-
-              <Grid container
-                marginTop={1}
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="center"  >
-                <Link
-                  variant='body1'
+                <Typography
+                  variant='h4'
                 >
-                  {' Recuperar Password'}
+                  Bienvenido
+                </Typography>
+
+                <TextField style={{ marginTop: '20px', width: '400px' }}
+                  type='email'
+                  id="outlined-basic"
+                  name="correo"
+                  label="Correo"
+                  variant="outlined"
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton
+                      >
+                        <AlternateEmailIcon />
+                      </IconButton>
+                    ),
+                  }}
+                />
+
+                <TextField
+                  style={{ marginTop: '10px', width: '400px' }}
+                  id="outlined-password-input"
+                  label="Password"
+                  name='password'
+                  type="password"
+                  autoComplete="current-password"
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton
+                      >
+                        <LockOpenIcon />
+                      </IconButton>
+                    ),
+                  }}
+
+                />
+
+                <Grid container
+                  marginTop={1}
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"  >
+                  <Link
+                    variant='body1'
+                  >
+                    {' Recuperar Password'}
+                  </Link>
+                </Grid>
+
+
+
+
+                <Button style={{ marginTop: '60px', width: '400px', backgroundColor: '#2D3142' }}
+
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(loginIniciar(dataLogin))
+                  }}
+                >Login
+                </Button>
+
+                <Link
+                  marginTop='100px'
+                >
+                  {' No tienes cuenta ?  Registrarse'}
                 </Link>
-              </Grid>
 
 
 
-
-              <Button style={{ marginTop: '60px', width: '400px', backgroundColor: '#2D3142' }}
-                variant="contained"
-                onClick={() => {
-                  console.log(data)
-                  dispatch(loginIniciar(data))
-                }}
-              >Login
-              </Button>
-
-              <Link
-                marginTop='100px'
-              >
-                {' No tienes cuenta ?  Registrarse'}
-              </Link>
-
-
-
-            </FormControl>
-          </Grid>
+              </FormControl>
+            </Grid>
 
           </Paper>
 
         </Grid>
+
+        {code === 0 && (
+          <Alert variant="filled" severity="success">
+            This is a success alert — check it out!
+          </Alert>
+        )
+        }
+
+        {code === -1 && (
+          <Alert variant="filled" severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {message}
+          </Alert>
+        )
+        }
 
 
 

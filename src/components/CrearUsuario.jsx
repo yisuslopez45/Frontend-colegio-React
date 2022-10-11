@@ -1,9 +1,12 @@
 
-import { Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axiosClient from '../config/AxiosClient';
 import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
 
@@ -45,6 +48,89 @@ const steps = ['Registro datos básicos', 'Registro datos personales '];
 
 const CrearUsuario = () => {
 
+    const [listProfesion, setlistaProfesion] = useState([])
+    const [listMaterias, setlistaMaterias] = useState([])
+    const [banderaPassword, setBanderaPassword] = useState(false)
+    const [datosUsuario, setdatosUsuario] = useState({
+        nombres: "",
+        apellidos: "",
+        direccion: "",
+        telefono: "",
+        cedula: "",
+        id_sexo: "",
+        ciudad: "",
+        id_profesion: "",
+        id_materia: "",
+        password: "",
+        password2: "",
+        cod_rol :""
+
+    })
+
+    const { nombres, apellidos, direccion, telefono, cedula, id_sexo, ciudad, id_profesion, id_materia, password,password2 , cod_rol} = datosUsuario
+
+    const queryGet = async (url, funcion) => {
+
+        try {
+            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            const { data } = await axiosClient.get(url);
+
+            funcion(data.data)
+
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    const queryPost = async (url) => {
+
+        try {
+            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            const { data } = await axiosClient.post('/crearUsuario',datosUsuario);
+
+            console.log(data)
+
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+
+    useEffect(()=>{
+
+        console.log(datosUsuario.password.length)
+
+        if (datosUsuario.password.length > 0 && datosUsuario.password2.length > 0) {
+            if(datosUsuario.password !== datosUsuario.password2){
+                setBanderaPassword(true)
+            }else{
+                setBanderaPassword(false)
+            }
+        }else{
+            setBanderaPassword(false)
+        }
+
+    },[datosUsuario.password, datosUsuario.password2])
+
+
+    useEffect(() => {
+
+        queryGet('/consultarProfesiones', setlistaProfesion)
+        queryGet('/consultarMaterias', setlistaMaterias)
+    }, [])
+
+
+    const handleChange = (e) => {
+
+        setdatosUsuario({
+            ...datosUsuario,
+            [e.target.name]: e.target.value
+        })
+
+    }
+
 
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -63,32 +149,35 @@ const CrearUsuario = () => {
             case 1: return (
                 <>
                     <Grid item lg={6} padding={1}     >
-                        <TextField sx={input} fullWidth id="outlined-basic" label="Nombres" variant="outlined" />
+                        <TextField sx={input} fullWidth value={nombres} onChange={handleChange} id="outlined-basic" name='nombres' label="Nombres" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}   >
-                        <TextField fullWidth id="outlined-basic" label="Apellidos" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={apellidos} onChange={handleChange} name='apellidos' label="Apellidos" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} padding={1} textAlign="center"  >
-                        <TextField fullWidth id="outlined-basic" label="Direccion" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={direccion} onChange={handleChange} name='direccion' label="Direccion" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}     >
-                        <TextField fullWidth id="outlined-basic" label="Telefono" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={telefono} onChange={handleChange} name='telefono' label="Telefono" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}   >
-                        <TextField fullWidth id="outlined-basic" label="Cedula" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={cedula} onChange={handleChange} name='cedula' label="Cedula" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} padding={1} textAlign="center"    >
                         <FormControl fullWidth  >
-                            <InputLabel id="demo-simple-select-label">Sexo</InputLabel>
+                            <InputLabel name="id_sexo" id="demo-simple-select-label">Sexo</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-
+                                onChange={handleChange}
+                                value={id_sexo}
+                                name="id_sexo"
                                 label="Sexo"
 
                             >
                                 <MenuItem value={1}>Hombre</MenuItem>
-                                <MenuItem value={2}>Mujer</MenuItem>
+                                <MenuItem value={3}>Mujer</MenuItem>
+                                <MenuItem value={2}>Otro</MenuItem>
 
                             </Select>
                         </FormControl>
@@ -100,69 +189,65 @@ const CrearUsuario = () => {
 
             case 2: return (
                 <>
+                    <Grid item lg={6} padding={1} textAlign="center"  >
+                        <TextField fullWidth onChange={handleChange} value={ciudad} name='ciudad' id="outlined-basic" label="Ciudad" variant="outlined" />
+                    </Grid>
+
                     <Grid item lg={6} padding={1}     >
                         <FormControl fullWidth  >
-                            <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Rol</InputLabel>
                             <Select
+                                value={cod_rol}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-
-                                label="Edad"
-
+                                name='cod_rol'
+                                label="Profesion"
+                                onChange={handleChange}
                             >
-                                <MenuItem value={1}>Colombia</MenuItem>
-                                <MenuItem value={2}>Mexico</MenuItem>
+                                <MenuItem value={1}  >Docente</MenuItem>
+                                <MenuItem value={2} >Administrador</MenuItem>
+
 
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item lg={6} padding={1}   >
-                        <FormControl fullWidth  >
-                            <InputLabel id="demo-simple-select-label">Departamento</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
 
-                                label="Edad"
-
-                            >
-                                <MenuItem value={1}>Cauca</MenuItem>
-                                <MenuItem value={2}>Valle del cauca</MenuItem>
-
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item lg={12} padding={1} textAlign="center"  >
-                        <TextField fullWidth id="outlined-basic" label="Ciudad" variant="outlined" />
-                    </Grid>
                     <Grid item lg={6} padding={1}     >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
                             <Select
+                                value={id_profesion}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-
+                                name='id_profesion'
                                 label="Profesion"
-
+                                onChange={handleChange}
                             >
-                                <MenuItem value={1}>Licenciado</MenuItem>
-                                <MenuItem value={2}>Ingeniero</MenuItem>
+                                {listProfesion.map(x => (
+                                    <MenuItem value={x.id_profesion} key={x.id_profesion}>{x.descripcionprofesion}</MenuItem>
+                                ))}
+
 
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item lg={6} padding={1}   >
                         <FormControl fullWidth  >
-                            <InputLabel id="demo-simple-select-label">Asignatura</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Materia</InputLabel>
                             <Select
+                                value={id_materia}
+                                onChange={handleChange}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-
+                                name="id_materia"
                                 label="Asignatura"
 
                             >
-                                <MenuItem value={1}>Matematicas</MenuItem>
-                                <MenuItem value={2}>Ingles</MenuItem>
+
+                                {listMaterias.map(x => (
+                                    <MenuItem value={x.id_materia} key={x.id_materia}>{x.asignatura}</MenuItem>
+                                ))}
+
 
                             </Select>
                         </FormControl>
@@ -176,11 +261,11 @@ const CrearUsuario = () => {
 
                     </Grid>
                     <Grid item lg={6} padding={1} textAlign="center"    >
-                        <TextField fullWidth id="outlined-basic" label="Contraseña" variant="outlined" />
+                        <TextField value={password} required fullWidth id="outlined-basic" label="Contraseña" onChange={handleChange} name='password' variant="outlined" />
                     </Grid>
 
                     <Grid item lg={6} padding={1} textAlign="center"    >
-                        <TextField fullWidth id="outlined-basic" label="confirmar Contraseña" variant="outlined" />
+                        <TextField value={password2} required fullWidth id="outlined-basic" name='password2' onChange={handleChange} label="confirmar Contraseña" variant="outlined" />
                     </Grid>
 
                 </>
@@ -319,6 +404,15 @@ const CrearUsuario = () => {
                         </Box>
 
                     </Grid>
+
+                    {
+                        banderaPassword && (
+                            <Alert variant="filled" severity="error">
+                            Las contraseñas no coinciden
+                          </Alert>
+                        )
+                    }
+
 
 
 

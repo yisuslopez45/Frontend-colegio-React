@@ -10,6 +10,7 @@ import Admin from "./components/Admin";
 import InformeAdmin from "./components/InformeAdmin";
 import CrearRegistro from "./components/CrearRegistro";
 import EditarRegistro from "./components/EditarRegistro";
+import Docente from "./components/Docente";
 
 const App = () => {
   return <>
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/Semestre" element={<AsignarDocente/>}/>
         <Route path="/CrearRegistro" element={<CrearRegistro/>}/>
         <Route path="/EditarRegistro" element={<EditarRegistro/>}/>
+        <Route path="/Docente" element={<Docente/>}/>
       
         
       </Routes>
