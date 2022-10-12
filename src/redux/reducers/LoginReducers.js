@@ -27,6 +27,7 @@ export default function loginReducers (state = initialState, action) {
                 message:  action.payload.msg,
                 rol :  action.payload.idRol,
                 code : '1',
+                id_usuario : action.payload.id_usuario
 
             }
         case LOGIN_START_ERROR:

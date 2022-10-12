@@ -443,7 +443,7 @@ const CrearUsuario = () => {
                         )
                     }
 
-{
+                    {
                         notificacion === 2 && (
                             <Alert variant="filled" severity="error">
                             Ocurrio un error en el registro
