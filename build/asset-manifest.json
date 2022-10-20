@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.17bbfea1.css",
+    "main.js": "/static/js/main.1b2adf9f.js",
+    "static/media/online.png": "/static/media/online.ec8757c096301ad11ef9.png",
+    "static/media/Designer.png": "/static/media/Designer.629f9931522091edd2d7.png",
+    "static/media/icons_docente2.svg": "/static/media/icons_docente2.4fe3ab8f10e48e661fd644de65ff9c6e.svg",
+    "static/media/icons_docente1.svg": "/static/media/icons_docente1.77757e7073abb5c893fc7abb3a2736e3.svg",
+    "static/media/Data.png": "/static/media/Data.af8ed5efb936a1672d81.png",
+    "static/media/Checklist_Two Color.svg": "/static/media/Checklist_Two Color.df8e23da84324178ed7b65e2a6187088.svg",
+    "static/media/icons8-casa.svg": "/static/media/icons8-casa.8d303c5910ff1dcd667c965acc0788db.svg",
+    "static/media/icons8-instagram.svg": "/static/media/icons8-instagram.aaa0dfcaa8e9a6803b445e82995ec1c4.svg",
+    "static/media/icons8-facebook.svg": "/static/media/icons8-facebook.64d87c86d05e64300ceb6205fb489d94.svg",
+    "index.html": "/index.html",
+    "main.17bbfea1.css.map": "/static/css/main.17bbfea1.css.map",
+    "main.1b2adf9f.js.map": "/static/js/main.1b2adf9f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.17bbfea1.css",
+    "static/js/main.1b2adf9f.js"
+  ]
+}
