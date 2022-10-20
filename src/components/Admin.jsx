@@ -5,6 +5,7 @@ import imagen2 from '../img/Data.png'
 import imagen3 from '../img/online.png'
 import React from 'react'
 import Footer from './Footer'
+import { Link } from 'react-router-dom'
 
 
 const estilo = {
@@ -51,7 +52,7 @@ const Admin = () => {
 
 
     <Grid container direction="column" >
-     
+
 
       <Grid item style={{ backgroundColor: "white" }} paddingTop={20} paddingBottom={15} >
 
@@ -59,8 +60,8 @@ const Admin = () => {
 
           <Grid container border={1} sx={useStyle} marginTop={2} md={3} xs={6}  >
 
-            <Typography style={{ fontSize: "30px", fontWeight: "bold" , color:"#2D3142" }}>
-              Crear Usuario
+            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
+             Informe
             </Typography>
             <CardMedia
               component="img"
@@ -70,8 +71,10 @@ const Admin = () => {
               width="300px"
 
             />
-
-            <Button sx={button} variant="contained">Crear</Button>
+              <Link to="/InformeAdmin" style={{ textDecoration: "none" }}>
+              <Button sx={button} variant="contained">Ver</Button>
+            </Link>
+            
 
 
           </Grid>
@@ -81,8 +84,8 @@ const Admin = () => {
 
 
           <Grid container border={1} sx={useStyle} marginLeft={2} marginTop={2} md={3} xs={6}>
-            <Typography style={{ fontSize: "30px", fontWeight: "bold" , color:"#2D3142" }}>
-              Agendar Semestre
+            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
+            Crear Usuario
             </Typography>
 
             <CardMedia
@@ -93,16 +96,18 @@ const Admin = () => {
               width="300px"
 
             />
-
-            <Button size="large" sx={button} variant="contained">Agendar</Button>
+             <Link to="/CrearUsuario" style={{ textDecoration: "none" }}>
+             <Button size="large" sx={button} variant="contained">Crear</Button>
+            </Link>
+           
 
           </Grid>
 
 
           <Grid container border={1} sx={useStyle} marginLeft={2} marginTop={2} md={3} xs={6} >
 
-            <Typography style={{ fontSize: "30px", fontWeight: "bold" , color:"#2D3142" }}>
-              Pagos
+            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
+              Semestre
             </Typography>
 
             <CardMedia
@@ -114,7 +119,10 @@ const Admin = () => {
 
             />
 
-            <Button size="large" sx={button} variant="contained">Pagar</Button>
+            <Link to="/Semestre" style={{ textDecoration: "none" }}>
+            <Button size="large" sx={button} variant="contained">Agendar</Button>
+            </Link>
+            
           </Grid>
 
         </Grid>

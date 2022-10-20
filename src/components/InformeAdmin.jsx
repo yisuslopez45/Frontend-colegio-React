@@ -41,7 +41,7 @@ const InformeAdmin = () => {
     const [cedula, setCedula] = useState(0)
     const [data, setData] = useState({})
     const [info, setInfo] = useState([])
-    
+
 
     const queryGet = async (url, funcion) => {
 
@@ -63,15 +63,15 @@ const InformeAdmin = () => {
         queryGet('/consultarDocentes', setDocentes)
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         queryGet(`/consultarDocenteCedula/${cedula}`, setData)
-    },[cedula])
+    }, [cedula])
 
-    useEffect(()=>{
-        if(data.id_usuario !== undefined){     
+    useEffect(() => {
+        if (data.id_usuario !== undefined) {
             queryGet(`/RegistroAsistencia/${data.id_usuario}`, setInfo)
         }
-    },[data.id_usuario])
+    }, [data.id_usuario])
 
 
 
@@ -179,28 +179,28 @@ const InformeAdmin = () => {
                             </Typography>
                         </Grid>
 
-                        <Grid item lg={12} style={{display:"flex" , justifyContent:"left" }} >
-                          
-                            <FormControl style={{width:"200px"}}  >
-                            <InputLabel id="demo-simple-select-label">Materia</InputLabel>
-                            <Select
-                                value={cedula}
-                                onChange={(e)=>{ setCedula(e.target.value) }}
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                name="id_materia"
-                                label="Asignatura"
+                        <Grid item lg={12} style={{ display: "flex", justifyContent: "left" }} >
 
-                            >
+                            <FormControl style={{ width: "200px" }}  >
+                                <InputLabel id="demo-simple-select-label">Materia</InputLabel>
+                                <Select
+                                    value={cedula}
+                                    onChange={(e) => { setCedula(e.target.value) }}
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    name="id_materia"
+                                    label="Asignatura"
 
-                                {docentes.map(x => (
-                                    <MenuItem value={x.cedula} key={x.cedula}>{x.nombre} {x.apellido}</MenuItem>
-                                ))}
+                                >
+
+                                    {docentes.map(x => (
+                                        <MenuItem value={x.cedula} key={x.cedula}>{x.nombre} {x.apellido}</MenuItem>
+                                    ))}
 
 
-                            </Select>
-                        </FormControl>
-                          
+                                </Select>
+                            </FormControl>
+
                         </Grid>
 
                         <Grid item xs={12} padding={1}   >
@@ -234,38 +234,58 @@ const InformeAdmin = () => {
                         </Grid>
 
 
-                      {
-                        info.length !== 0 && (
-                            <Grid item lg={12} padding={1}     >
+                        {
+                            info.length !== 0 ? (
+                                <Grid item lg={12} padding={1}     >
 
-                            <Grid item xs={12} marginBottom={5}>
-                                <Typography
-                                    style={{ fontSize: "15px", fontWeight: "bold" }}
-                                >
-                                    Informacion Trabajo
-                                </Typography>
-                                <Divider style={{ backgroundColor: 'rgb(89, 60, 120)' }} />
-                            </Grid>
+                                    <Grid item xs={12} marginBottom={5}>
+                                        <Typography
+                                            style={{ fontSize: "15px", fontWeight: "bold" }}
+                                        >
+                                            Informacion Trabajo
+                                        </Typography>
+                                        <Divider style={{ backgroundColor: 'rgb(89, 60, 120)' }} />
+                                    </Grid>
 
 
-                            <Grid item xs={12} style={{ width: "1200px" }}>
+                                    <Grid item xs={12} style={{ width: "1200px" }}>
 
-                                <DataGrid
-                                    autoHeight
-                                    rows={info}
-                                    columns={columns2}
-                                    sx={table}
-                                    style={{ fontSize: "15px", fontWeight: "bold" }}
-                                    pageSize={5}
+                                        <DataGrid
+                                            autoHeight
+                                            rows={info}
+                                            columns={columns2}
+                                            sx={table}
+                                            style={{ fontSize: "15px", fontWeight: "bold" }}
+                                            pageSize={5}
 
-                                    getRowId={(row) => row.id_docente}
+                                            getRowId={(row) => row.id_docente}
 
-                                />
-                            </Grid>
-                        </Grid>
+                                        />
+                                    </Grid>
+                                </Grid>
 
-                        )
-                      }
+                            ) : (
+                                <Grid item lg={12} padding={1}     >
+
+                                    <Grid item xs={12} marginBottom={5}>
+                                        <Typography
+                                            style={{ fontSize: "15px", fontWeight: "bold" }}
+                                        >
+                                            Informacion Trabajo
+                                        </Typography>
+                                        <Divider style={{ backgroundColor: 'rgb(89, 60, 120)' }} />
+                                    </Grid>
+
+
+                                    <Grid item xs={12} textAlign="center" style={{ width: "1200px", height:"100px"  ,  backgroundColor: "#77BFA3" }}>
+                                        <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
+                                            No tiene entradas
+                                        </Typography>
+
+                                    </Grid>
+                                </Grid>
+                            )
+                        }
 
 
                     </Grid>

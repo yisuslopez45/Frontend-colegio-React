@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import axiosClient from '../config/AxiosClient'
 import imagenSend from '../img/Checklist_Two Color.svg'
+import AsignarDocente from './AsignarDocente'
 import Footer from './Footer'
 
 const button = {
@@ -58,6 +59,8 @@ const CrearRegistro = () => {
     })
 
 
+    const { id_docente, id_materia, horas_dictadas, tema_dictado , num_estudiantes , observacion } = datos
+
     const handleChange = (e) => {
         setDatos({
             ...datos,
@@ -77,6 +80,25 @@ const CrearRegistro = () => {
 
     }
 
+    const limpiarCampos = ()=>{
+        setDatos({
+            ...datos,
+            id_materia: "",
+            horas_dictadas: 0,
+            tema_dictado: "",
+            num_estudiantes: "",
+            observacion: ""
+        })
+    }
+
+    const enviarFormulario = () => {
+        if (id_materia != "" && id_docente != "" && horas_dictadas != "" && tema_dictado != "" && num_estudiantes != "" && observacion != "") {
+            queryPost()
+        } else {
+            setNotificacion(3)
+        }
+    }
+
     const queryPost = async (url) => {
 
         try {
@@ -86,6 +108,7 @@ const CrearRegistro = () => {
             console.log(data)
             if (data.code === 1) {
                 setNotificacion(1)
+                limpiarCampos()
             } else {
                 setNotificacion(2)
             }
@@ -126,6 +149,7 @@ const CrearRegistro = () => {
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     label="Horas Dictadas"
+                                    value={horas_dictadas}
                                     onChange={handleChange}
                                     name='horas_dictadas'
                                 >
@@ -140,10 +164,10 @@ const CrearRegistro = () => {
                             </FormControl>
                         </Grid>
                         <Grid item lg={6} padding={1} textAlign="center"  >
-                            <TextField sx={input} fullWidth id="outlined-basic" onChange={handleChange} name='num_estudiantes' label="Numero estudiantes" variant="outlined" />
+                            <TextField sx={input} fullWidth id="outlined-basic" value={num_estudiantes} onChange={handleChange} name='num_estudiantes' label="Numero estudiantes" variant="outlined" />
                         </Grid>
                         <Grid item lg={12} padding={1}   >
-                            <TextField sx={input} fullWidth id="outlined-basic" onChange={handleChange} name='tema_dictado' label="Tema Dictado" variant="outlined" />
+                            <TextField sx={input} fullWidth id="outlined-basic" value={tema_dictado} onChange={handleChange} name='tema_dictado' label="Tema Dictado" variant="outlined" />
                         </Grid>
                         <Grid item lg={12} padding={1}     >
                             <FormControl fullWidth  >
@@ -153,6 +177,7 @@ const CrearRegistro = () => {
                                     id="demo-simple-select"
                                     label="Asignatura"
                                     name='id_materia'
+                                    value={id_materia}
                                     onChange={handleChange}
                                 >
                                     {materias.map(x => (
@@ -165,31 +190,39 @@ const CrearRegistro = () => {
                         </Grid>
                         <Grid item lg={12} padding={1}     >
                             <TextField sx={input} multiline
-                                rows={4} fullWidth id="outlined-basic" onChange={handleChange} name='observacion' label="Observaciones" variant="outlined" />
+                                rows={4} fullWidth id="outlined-basic" value={observacion} onChange={handleChange} name='observacion' label="Observaciones" variant="outlined" />
                         </Grid>
 
                         <Grid item lg={12} padding={1} textAlign="center"    >
-                            <Button size="large" onClick={queryPost} sx={button2} variant="contained">Crear Registro</Button>
+                            <Button size="large" onClick={enviarFormulario} sx={button2} variant="contained">Crear Registro</Button>
                         </Grid>
 
                     </Grid>
 
 
-                {
-                    notificacion === 1 && (
-                        <Alert variant="filled" severity="success">
-                            Se inserto la asistencia correctamente
-                        </Alert>
-                    )
-                }
+                    {
+                        notificacion === 1 && (
+                            <Alert variant="filled" severity="success">
+                                Se inserto la asistencia correctamente
+                            </Alert>
+                        )
+                    }
 
-                {
-                    notificacion === 2 && (
-                        <Alert variant="filled" severity="error">
-                            Ocurrio un error en la insercion
-                        </Alert>
-                    )
-                }
+                    {
+                        notificacion === 2 && (
+                            <Alert variant="filled" severity="error">
+                                Ocurrio un error en la insercion
+                            </Alert>
+                        )
+                    }
+
+                    {
+                        notificacion === 3 && (
+                            <Alert variant="filled" severity="error">
+                                Campos vacios
+                            </Alert>
+                        )
+                    }
 
                 </Grid>
 

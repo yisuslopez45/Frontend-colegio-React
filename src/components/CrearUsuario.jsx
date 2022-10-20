@@ -1,5 +1,6 @@
 
-import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { NoMealsRounded } from '@mui/icons-material';
+import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, skeletonClasses, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import { useSnackbar } from 'notistack';
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -53,6 +54,7 @@ const CrearUsuario = () => {
     const [listMaterias, setlistaMaterias] = useState([])
     const [banderaPassword, setBanderaPassword] = useState(false)
     const [notificacion, setNotificacion] = useState(0)
+    const [SkippedFormulario, setSkippedFormulario] = useState(0)
 
     const [datosUsuario, setdatosUsuario] = useState({
         nombres: "",
@@ -66,12 +68,13 @@ const CrearUsuario = () => {
         id_materia: "",
         password: "",
         password2: "",
-        cod_rol :"",
-        correo:""
-        
+        cod_rol: "",
+        correo: "",
+
     })
 
-    const { nombres, apellidos, direccion, telefono, cedula, id_sexo, ciudad, id_profesion, id_materia, password,password2 , cod_rol, correo} = datosUsuario
+    const { nombres   , apellidos ,direccion ,telefono ,cedula ,id_sexo ,ciudad ,id_profesion , 
+        id_materia ,password , password2  , cod_rol ,correo  } = datosUsuario
 
     const queryGet = async (url, funcion) => {
 
@@ -91,12 +94,12 @@ const CrearUsuario = () => {
 
         try {
             //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
-            const { data } = await axiosClient.post('/crearUsuario',datosUsuario);
+            const { data } = await axiosClient.post('/crearUsuario', datosUsuario);
 
-            console.log(data)
-            if(data.code === "1"){
+            if (data.code === "1") {
                 setNotificacion(1)
-            }else{
+                limpiarCampos()
+            } else {
                 setNotificacion(2)
             }
 
@@ -106,22 +109,38 @@ const CrearUsuario = () => {
 
     }
 
+    const limpiarCampos =()=>{
+        setdatosUsuario({
+            nombres: "",
+            apellidos: "",
+            direccion: "",
+            telefono: "",
+            cedula: "",
+            id_sexo: "",
+            ciudad: "",
+            id_profesion: "",
+            id_materia: "",
+            password: "",
+            password2: "",
+            cod_rol: "",
+            correo: "",     
+        })
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        console.log(datosUsuario.password.length)
 
         if (datosUsuario.password.length > 0 && datosUsuario.password2.length > 0) {
-            if(datosUsuario.password !== datosUsuario.password2){
+            if (datosUsuario.password !== datosUsuario.password2) {
                 setBanderaPassword(true)
-            }else{
+            } else {
                 setBanderaPassword(false)
             }
-        }else{
+        } else {
             setBanderaPassword(false)
         }
 
-    },[datosUsuario.password, datosUsuario.password2])
+    }, [datosUsuario.password, datosUsuario.password2])
 
 
     useEffect(() => {
@@ -135,7 +154,8 @@ const CrearUsuario = () => {
 
         setdatosUsuario({
             ...datosUsuario,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            [e.target.name+"Estado"]: "false"
         })
 
     }
@@ -158,24 +178,25 @@ const CrearUsuario = () => {
             case 1: return (
                 <>
                     <Grid item lg={6} padding={1}     >
-                        <TextField sx={input} fullWidth value={nombres} onChange={handleChange} id="outlined-basic" name='nombres' label="Nombres" variant="outlined" />
+                        <TextField sx={input} fullWidth value={nombres} onChange={handleChange} id="outlined-basic"name='nombres' label="Nombres" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}   >
-                        <TextField fullWidth id="outlined-basic" value={apellidos} onChange={handleChange} name='apellidos' label="Apellidos" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={apellidos} onChange={handleChange}  name='apellidos' label="Apellidos" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} padding={1} textAlign="center"  >
-                        <TextField fullWidth id="outlined-basic" value={direccion} onChange={handleChange} name='direccion' label="Direccion" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={direccion} onChange={handleChange}  name='direccion' label="Direccion" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}     >
-                        <TextField fullWidth id="outlined-basic" value={telefono} onChange={handleChange} name='telefono' label="Telefono" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={telefono} onChange={handleChange}  type="number" name='telefono' label="Telefono" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1}   >
-                        <TextField fullWidth id="outlined-basic" value={cedula} onChange={handleChange} name='cedula' label="Cedula" variant="outlined" />
+                        <TextField fullWidth id="outlined-basic" value={cedula} onChange={handleChange} type="number" name='cedula' label="Cedula" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} padding={1} textAlign="center"    >
                         <FormControl fullWidth  >
                             <InputLabel name="id_sexo" id="demo-simple-select-label">Sexo</InputLabel>
                             <Select
+                               
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 onChange={handleChange}
@@ -240,7 +261,7 @@ const CrearUsuario = () => {
                             </Select>
                         </FormControl>
                     </Grid>
-                   
+
                     <Grid item lg={6} padding={1}   >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Materia</InputLabel>
@@ -274,11 +295,11 @@ const CrearUsuario = () => {
                         <TextField sx={input} fullWidth value={correo} onChange={handleChange} id="outlined-basic" name='correo' label="Correo" variant="outlined" />
                     </Grid>
                     <Grid item lg={6} padding={1} textAlign="center"    >
-                        <TextField value={password} required fullWidth id="outlined-basic" label="Contraseña" onChange={handleChange} name='password' variant="outlined" />
+                        <TextField value={password} required fullWidth type="password" id="outlined-basic" label="Contraseña" onChange={handleChange} name='password' variant="outlined" />
                     </Grid>
 
                     <Grid item lg={6} padding={1} textAlign="center"    >
-                        <TextField value={password2} required fullWidth id="outlined-basic" name='password2' onChange={handleChange} label="confirmar Contraseña" variant="outlined" />
+                        <TextField value={password2} required fullWidth  type="password" id="outlined-basic" name='password2' onChange={handleChange} label="confirmar Contraseña" variant="outlined" />
                     </Grid>
 
                 </>
@@ -287,22 +308,39 @@ const CrearUsuario = () => {
         }
     }
     const handleNext = () => {
-        let newSkipped = skipped;
 
-        
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
+        //validarCampos()
+
+        const { nombres ,apellidos, direccion, telefono, cedula, id_sexo, ciudad, id_profesion, id_materia, password, password2, cod_rol, correo } = datosUsuario
+
+  
+        if (nombres.trim() != "" && apellidos.trim() != "" && direccion.trim() != "" && telefono.trim() != "" && cedula.trim() != "" && id_sexo !== "" ) {
+
+            let newSkipped = skipped;
+
+            if (isStepSkipped(activeStep)) {
+                newSkipped = new Set(newSkipped.values());
+                newSkipped.delete(activeStep);
+            }
+
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            setSkipped(newSkipped);
+
+        }else{
+
+            setNotificacion(3)
         }
-        
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-        console.log(activeStep)
+
         console.log(steps.length-1)
 
-        if(activeStep === steps.length - 1 ){
-            queryPost()
-        }  
+        if (activeStep === steps.length - 1) {
+            
+            if (ciudad.trim() != "" && id_profesion !== "" && id_materia != "" && password.trim() != "" && password2.trim() != "" && cod_rol !== ""  && correo !== "") {
+                queryPost()
+            }else{
+                setNotificacion(3)
+            }  
+        }
     };
 
     const handleBack = () => {
@@ -367,13 +405,10 @@ const CrearUsuario = () => {
                                 })}
                             </Stepper>
                             {activeStep === steps.length ? (
+
                                 <React.Fragment>
                                     <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5}>
-                                        <Grid item >
-                                            <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
-                                                Completo el registro correctamente
-                                            </Typography>
-                                        </Grid>
+
 
                                         <Grid item  >
                                             <CardMedia
@@ -430,24 +465,32 @@ const CrearUsuario = () => {
                     {
                         banderaPassword && (
                             <Alert variant="filled" severity="error">
-                            Las contraseñas no coinciden
-                          </Alert>
+                                Las contraseñas no coinciden
+                            </Alert>
                         )
                     }
 
                     {
                         notificacion === 1 && (
-                            <Alert  variant="filled" severity="success">
+                            <Alert variant="filled" severity="success">
                                 Se registro el usuario Correctamente
-                          </Alert>
+                            </Alert>
                         )
                     }
 
                     {
                         notificacion === 2 && (
                             <Alert variant="filled" severity="error">
-                            Ocurrio un error en el registro
-                          </Alert>
+                                Ocurrio un error en el registro
+                            </Alert>
+                        )
+                    }
+
+{
+                        notificacion === 3 && (
+                            <Alert variant="filled" severity="error">
+                               Campos Vacios
+                            </Alert>
                         )
                     }
 

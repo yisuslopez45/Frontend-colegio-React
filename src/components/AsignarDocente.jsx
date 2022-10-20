@@ -77,6 +77,14 @@ const AsignarDocente = () => {
 
     }
 
+    const enviarFormulario = () => {
+        if (id_materia != "" && precio_hora != "" && intencidad != "" && id_docente != "" && semestre != "") {
+            queryPost()
+        } else {
+            setNotificacion(3)
+        }
+    }
+
     const queryPost = async () => {
 
         console.log(datosUsuario)
@@ -88,10 +96,12 @@ const AsignarDocente = () => {
             console.log(data)
             if (data.code === 1) {
                 setNotificacion(1)
+            }else{
+                setNotificacion(2)
             }
 
         } catch (err) {
-            console.log(err)
+            setNotificacion(2)
         }
     }
 
@@ -224,7 +234,7 @@ const AsignarDocente = () => {
                         </Grid>
 
                         <Grid item lg={12} padding={1} textAlign="center"    >
-                            <Button size="large" onClick={() => { queryPost() }} sx={button2} variant="contained">Crear Semestre</Button>
+                            <Button size="large" onClick={() => { enviarFormulario() }} sx={button2} variant="contained">Crear Semestre</Button>
                         </Grid>
 
                     </Grid>
@@ -233,6 +243,22 @@ const AsignarDocente = () => {
                         notificacion === 1 && (
                             <Alert variant="filled" severity="success">
                                 Se creo el registro correctamente
+                            </Alert>
+                        )
+                    }
+
+                    {
+                        notificacion === 2 && (
+                            <Alert variant="filled" severity="error">
+                                Ocurrio un error en el registro
+                            </Alert>
+                        )
+                    }
+
+                    {
+                        notificacion === 3 && (
+                            <Alert variant="filled" severity="error">
+                                Campos Vacios
                             </Alert>
                         )
                     }

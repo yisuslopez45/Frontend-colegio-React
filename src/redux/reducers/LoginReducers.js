@@ -1,18 +1,18 @@
 
-import { LOGIN_START, LOGIN_START_SUCCESS, LOGIN_START_ERROR } from "../types";
+import { LOGIN_START, LOGIN_START_SUCCESS, LOGIN_START_ERROR, CERRAR_LOGIN_SUCCESS } from "../types";
 
 const initialState = {
 
     nombre_usuario: '',
     loading: false,
     message: '',
-    code : '',
-    error : '',
+    code: '',
+    error: '',
     rol: ''
 
 }
 
-export default function loginReducers (state = initialState, action) {
+export default function loginReducers(state = initialState, action) {
     switch (action.type) {
         case LOGIN_START:
             return {
@@ -24,10 +24,10 @@ export default function loginReducers (state = initialState, action) {
                 ...state,
                 loading: false,
                 nombre_usuario: action.payload.nombreUsuario,
-                message:  action.payload.msg,
-                rol :  action.payload.idRol,
-                code : '1',
-                id_usuario : action.payload.id_usuario
+                message: action.payload.msg,
+                rol: action.payload.idRol,
+                code: '1',
+                id_usuario: action.payload.id_usuario
 
             }
         case LOGIN_START_ERROR:
@@ -36,9 +36,21 @@ export default function loginReducers (state = initialState, action) {
                 nombre_usuario: '',
                 loading: false,
                 message: action.payload.message,
-                code : action.payload.code
+                code: action.payload.code
             }
-      
+
+        case CERRAR_LOGIN_SUCCESS:
+            return {
+                ...state,
+                loading: '',
+                nombre_usuario: '',
+                message: '',
+                rol: '',
+                code: '',
+                id_usuario: ''
+
+            }
+
         default:
             return state;
     }

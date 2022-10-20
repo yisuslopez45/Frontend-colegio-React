@@ -5,6 +5,7 @@ import imagen2 from '../img/Data.png'
 import imagen3 from '../img/icons_docente2.svg'
 import React from 'react'
 import Footer from './Footer'
+import { Link } from 'react-router-dom'
 
 
 
@@ -68,7 +69,10 @@ const Docente = () => {
                             width="300px"
                         />
 
-                        <Button sx={button} variant="contained">Crear</Button>
+                        <Link to="/CrearRegistro" style={{ textDecoration: "none" }}>
+                            <Button size="large" sx={button} variant="contained">Crear</Button>
+                        </Link>
+
 
                     </Grid>
 
@@ -77,7 +81,7 @@ const Docente = () => {
                     <Grid container sx={useStyle} marginLeft={2} marginTop={2} md={3} xs={6} >
 
                         <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
-                           Editar Registro
+                            Editar Registro
                         </Typography>
 
                         <CardMedia
@@ -89,7 +93,9 @@ const Docente = () => {
 
                         />
 
-                        <Button size="large" sx={button} variant="contained">Pagar</Button>
+                        <Link to="/EditarRegistro" style={{ textDecoration: "none" }}>
+                            <Button size="large" sx={button} variant="contained">Editar</Button>
+                        </Link>
                     </Grid>
 
                 </Grid>
