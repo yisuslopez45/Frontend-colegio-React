@@ -1,7 +1,7 @@
 import axios from "axios";
 
+// baseURL: 'http://localhost:4400'
 const axiosClient = axios.create({
-   // baseURL: 'http://localhost:4400'
    baseURL: 'https://colegio-backend-orm.onrender.com'
 });
 

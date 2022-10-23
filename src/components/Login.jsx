@@ -18,7 +18,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"))
+  const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
   const { code, message, rol } = useSelector(state => state.login)
   const [dataLogin, setDataLogin] = useState({
     correo: "",
@@ -49,120 +49,111 @@ export const Login = () => {
 
 
   return (
-    <Grid container direction='row' justifyContent='center' marginTop={isMatch ? 10 : 25} alignItems='center' >
+    <Grid container direction='row' style={{ height: "100vh" }} justifyContent='center' alignItems='center' border={1} >
 
 
-      <Grid item md={6} sx={12} style={{ backgroundColor: "#77bfa3", borderRadius: "20px 20px 20px 20px" }} >
 
+      <Grid container md={5} xs={9} sm={7} lg={5} xl={3} justifyContent='center' alignItems='center' style={{ backgroundColor: "#FFFFFF", borderRadius: "20px 20px 20px 20px" }}   >
+        <FormControl variant="outlined" style={{ alignItems: 'center', width: "300px", padding: "20px" }}  >
 
-        <Grid container justifyContent='center' alignItems='center' style={{ height: "800px" }} >
+          <Typography
+            variant='h4'
+          >
+            Bienvenido
+          </Typography>
 
-          <Paper elevation={isMatch ? 5 : 4}  >
-
-            <Grid item sx={12} md={12} height="600px" padding={10} >
-
-              <FormControl fullWidth variant="outlined" style={{ alignItems: 'center' }}>
-
-                <Typography
-                  variant='h4'
+          <TextField style={{ marginTop: '20px' }}
+            type='email'
+            id="outlined-basic"
+            fullWidth
+            name="correo"
+            label="Correo"
+            variant="outlined"
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: (
+                <IconButton
                 >
-                  Bienvenido
-                </Typography>
+                  <AlternateEmailIcon />
+                </IconButton>
+              ),
+            }}
+          />
 
-                <TextField style={{ marginTop: '20px', width: '400px' }}
-                  type='email'
-                  id="outlined-basic"
-                  name="correo"
-                  label="Correo"
-                  variant="outlined"
-                  onChange={handleChange}
-                  InputProps={{
-                    endAdornment: (
-                      <IconButton
-                      >
-                        <AlternateEmailIcon />
-                      </IconButton>
-                    ),
-                  }}
-                />
-
-                <TextField
-                  style={{ marginTop: '10px', width: '400px' }}
-                  id="outlined-password-input"
-                  label="Password"
-                  name='password'
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={handleChange}
-                  InputProps={{
-                    endAdornment: (
-                      <IconButton
-                      >
-                        <LockOpenIcon />
-                      </IconButton>
-                    ),
-                  }}
-
-                />
-
-                <Grid container
-                  marginTop={1}
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"  >
-                  <Link
-                    variant='body1'
-                  >
-                    {' Recuperar Password'}
-                  </Link>
-                </Grid>
-
-
-
-
-                <Button style={{ marginTop: '60px', width: '400px', backgroundColor: '#2D3142' }}
-
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(loginIniciar(dataLogin))
-                  }}
-                >Login
-                </Button>
-
-                <Link
-                  marginTop='100px'
+          <TextField
+            style={{ marginTop: '10px' }}
+            id="outlined-password-input"
+            label="Password"
+            fullWidth
+            name='password'
+            type="password"
+            autoComplete="current-password"
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: (
+                <IconButton
                 >
-                  {' No tienes cuenta ?  Registrarse'}
-                </Link>
+                  <LockOpenIcon />
+                </IconButton>
+              ),
+            }}
+
+          />
+
+          <Grid container
+            marginTop={1}
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"  >
+            <Link
+              variant='body1'
+            >
+              {' Recuperar Password'}
+            </Link>
+          </Grid>
 
 
 
-              </FormControl>
-            </Grid>
 
-          </Paper>
+          <Button style={{ marginTop: '60px', backgroundColor: '#2D3142' }}
+            fullWidth
+            variant="contained"
+            onClick={() => {
+              dispatch(loginIniciar(dataLogin))
+            }}
+          >Login
+          </Button>
 
-        </Grid>
+          <Link
+            marginTop='100px'
+          >
+            {' No tienes cuenta ?  Registrarse'}
 
-        {code === 0 && (
-          <Alert variant="filled" severity="success">
-            This is a success alert — check it out!
-          </Alert>
-        )
-        }
-
-        {code === -1 && (
-          <Alert variant="filled" severity="error">
-            <AlertTitle>Error</AlertTitle>
-            {message}
-          </Alert>
-        )
-        }
+          </Link>
 
 
+
+        </FormControl>
 
       </Grid>
+      {code === 0 && (
+        <Alert variant="filled" severity="success">
+          This is a success alert — check it out!
+        </Alert>
+      )
+      }
 
+
+
+
+
+      {code === -1 && (
+        <Alert variant="filled" severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {message}
+        </Alert>
+      )
+      }
 
 
     </Grid>
