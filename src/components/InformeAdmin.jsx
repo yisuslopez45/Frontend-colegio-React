@@ -89,14 +89,14 @@ const InformeAdmin = () => {
         {
             field: 'id_usuario',
             headerName: 'Id usuario',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
         {
             field: "nombre",
             headerName: 'Nombre docente',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
 
         },
@@ -104,14 +104,14 @@ const InformeAdmin = () => {
         {
             field: "apellido",
             headerName: 'apellido',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
 
         },
         {
             field: "correo",
             headerName: 'Correo',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
@@ -119,14 +119,14 @@ const InformeAdmin = () => {
         {
             field: 'telefono',
             headerName: 'telefono',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
         {
             field: 'cedula',
             headerName: 'cedula',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
@@ -138,33 +138,33 @@ const InformeAdmin = () => {
         {
             field: 'asignatura',
             headerName: 'Asignatura',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
         {
             field: "intencidad",
             headerName: 'Intencidad',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
         {
             field: "precio_hora",
             headerName: 'Precio Hora',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
         {
             field: "dictadas",
             headerName: 'Horas dictadas',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
         {
             field: "TotalPago",
             headerName: 'Total Pago',
-            minWidth : 150,
+            minWidth: 150,
             flex: 1
         },
 
@@ -180,7 +180,7 @@ const InformeAdmin = () => {
 
                 <Grid item width={"100%"}  >
 
-                    <Grid container direction="column" alignItems="center" justifyContent='center' marginTop={5} paddingLeft={isMatch ? 5 :  25} paddingRight={isMatch ? 5 :  25}>
+                    <Grid container direction="column" alignItems="center" justifyContent='center' marginTop={5} paddingLeft={isMatch ? 5 : 25} paddingRight={isMatch ? 5 : 25}>
 
                         <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}   >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
@@ -243,9 +243,9 @@ const InformeAdmin = () => {
 
                         {
                             info.length !== 0 ? (
-                                <Grid item lg={12} padding={1}     >
+                                <Grid item width={"100%"} padding={1}     >
 
-                                    <Grid item xs={12} marginBottom={5}>
+                                    <Grid item width={"100%"} marginBottom={5}>
                                         <Typography
                                             style={{ fontSize: "15px", fontWeight: "bold" }}
                                         >
@@ -255,21 +255,19 @@ const InformeAdmin = () => {
                                     </Grid>
 
 
-                                    <Grid item xs={12} >
+                                    <DataGrid
 
-                                        <DataGrid
+                                        autoHeight
+                                        rows={info}
+                                        columns={columns2}
+                                        sx={table}
+                                        style={{ fontSize: "15px", fontWeight: "bold" }}
+                                        pageSize={5}
 
-                                            autoHeight
-                                            rows={info}
-                                            columns={columns2}
-                                            sx={table}
-                                            style={{ fontSize: "15px", fontWeight: "bold" }}
-                                            pageSize={5}
+                                        getRowId={(row) => row.id_docente}
 
-                                            getRowId={(row) => row.id_docente}
+                                    />
 
-                                        />
-                                    </Grid>
                                 </Grid>
 
                             ) : (
