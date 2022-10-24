@@ -1,5 +1,5 @@
 
-import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -31,7 +31,9 @@ const table = {
 
     '& .MuiDataGrid-cell ': {
         justifyContent: "center"
-    }
+    },
+
+    width: "100%"
 
 }
 
@@ -41,6 +43,10 @@ const InformeAdmin = () => {
     const [cedula, setCedula] = useState(0)
     const [data, setData] = useState({})
     const [info, setInfo] = useState([])
+
+
+    const theme = useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"))
 
 
     const queryGet = async (url, funcion) => {
@@ -83,12 +89,14 @@ const InformeAdmin = () => {
         {
             field: 'id_usuario',
             headerName: 'Id usuario',
+            minWidth : 150,
             flex: 1
         },
 
         {
             field: "nombre",
             headerName: 'Nombre docente',
+            minWidth : 150,
             flex: 1
 
         },
@@ -96,29 +104,30 @@ const InformeAdmin = () => {
         {
             field: "apellido",
             headerName: 'apellido',
+            minWidth : 150,
             flex: 1
 
         },
         {
             field: "correo",
             headerName: 'Correo',
+            minWidth : 150,
             flex: 1
-
-
         },
 
 
         {
             field: 'telefono',
             headerName: 'telefono',
+            minWidth : 150,
             flex: 1
         },
 
         {
             field: 'cedula',
             headerName: 'cedula',
+            minWidth : 150,
             flex: 1
-
         },
 
 
@@ -129,35 +138,34 @@ const InformeAdmin = () => {
         {
             field: 'asignatura',
             headerName: 'Asignatura',
+            minWidth : 150,
             flex: 1
         },
 
         {
             field: "intencidad",
             headerName: 'Intencidad',
+            minWidth : 150,
             flex: 1
-
         },
 
         {
             field: "precio_hora",
             headerName: 'Precio Hora',
+            minWidth : 150,
             flex: 1
-
         },
         {
             field: "dictadas",
             headerName: 'Horas dictadas',
+            minWidth : 150,
             flex: 1
-
-
         },
         {
             field: "TotalPago",
             headerName: 'Total Pago',
+            minWidth : 150,
             flex: 1
-
-
         },
 
 
@@ -166,14 +174,15 @@ const InformeAdmin = () => {
 
     return (
 
-        <Grid container direction="column" >
+        <>
 
             <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={10} paddingBottom={15} >
 
-                <Grid item style={{ width: "1200px" }} >
+                <Grid item width={"100%"}  >
 
-                    <Grid container direction="column" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
-                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}  >
+                    <Grid container direction="column" alignItems="center" justifyContent='center' marginTop={5} paddingLeft={isMatch ? 5 :  25} paddingRight={isMatch ? 5 :  25}>
+
+                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}   >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                 Programación Semestre
                             </Typography>
@@ -203,9 +212,9 @@ const InformeAdmin = () => {
 
                         </Grid>
 
-                        <Grid item xs={12} padding={1}   >
+                        <Grid item width={"100%"} padding={1}  >
 
-                            <Grid item xs={12} marginBottom={5}>
+                            <Grid item marginBottom={5}>
                                 <Typography
                                     style={{ fontSize: "15px", fontWeight: "bold" }}
                                 >
@@ -215,20 +224,18 @@ const InformeAdmin = () => {
                             </Grid>
 
 
-                            <Grid item xs={12} style={{ width: "1200px" }}>
+                            <DataGrid
 
-                                <DataGrid
-                                    autoHeight
-                                    rows={rows1}
-                                    columns={columns}
-                                    sx={table}
-                                    style={{ fontSize: "15px", fontWeight: "bold" }}
-                                    pageSize={5}
+                                autoHeight
+                                rows={rows1}
+                                columns={columns}
+                                sx={table}
+                                style={{ fontSize: "15px", fontWeight: "bold" }}
+                                pageSize={5}
 
-                                    getRowId={(row) => parseInt(row.id_usuario)}
+                                getRowId={(row) => parseInt(row.id_usuario)}
 
-                                />
-                            </Grid>
+                            />
 
 
                         </Grid>
@@ -248,9 +255,10 @@ const InformeAdmin = () => {
                                     </Grid>
 
 
-                                    <Grid item xs={12} style={{ width: "1200px" }}>
+                                    <Grid item xs={12} >
 
                                         <DataGrid
+
                                             autoHeight
                                             rows={info}
                                             columns={columns2}
@@ -265,7 +273,7 @@ const InformeAdmin = () => {
                                 </Grid>
 
                             ) : (
-                                <Grid item lg={12} padding={1}     >
+                                <Grid item width={"100%"} padding={1}     >
 
                                     <Grid item xs={12} marginBottom={5}>
                                         <Typography
@@ -277,7 +285,7 @@ const InformeAdmin = () => {
                                     </Grid>
 
 
-                                    <Grid item xs={12} textAlign="center" style={{ width: "1200px", height:"100px"  ,  backgroundColor: "#77BFA3" }}>
+                                    <Grid item xs={12} textAlign="center" style={{ height: "100px", backgroundColor: "#77BFA3" }}>
                                         <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                             No tiene entradas
                                         </Typography>
@@ -301,7 +309,7 @@ const InformeAdmin = () => {
             <Footer></Footer>
 
 
-        </Grid>
+        </>
     )
 }
 
