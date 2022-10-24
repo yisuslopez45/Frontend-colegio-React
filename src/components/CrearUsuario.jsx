@@ -177,22 +177,22 @@ const CrearUsuario = () => {
         switch (index) {
             case 1: return (
                 <>
-                    <Grid item lg={6} padding={1}     >
+                    <Grid item lg={6} md={6}  sm={6} xs={6}padding={1}     >
                         <TextField sx={input} fullWidth value={nombres} onChange={handleChange} id="outlined-basic"name='nombres' label="Nombres" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} padding={1}   >
+                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}   >
                         <TextField fullWidth id="outlined-basic" value={apellidos} onChange={handleChange}  name='apellidos' label="Apellidos" variant="outlined" />
                     </Grid>
-                    <Grid item lg={12} padding={1} textAlign="center"  >
+                    <Grid item lg={12} md={12} sm={12} xs={12} padding={1} textAlign="center"  >
                         <TextField fullWidth id="outlined-basic" value={direccion} onChange={handleChange}  name='direccion' label="Direccion" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} padding={1}     >
+                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}     >
                         <TextField fullWidth id="outlined-basic" value={telefono} onChange={handleChange}  type="number" name='telefono' label="Telefono" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} padding={1}   >
+                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}   >
                         <TextField fullWidth id="outlined-basic" value={cedula} onChange={handleChange} type="number" name='cedula' label="Cedula" variant="outlined" />
                     </Grid>
-                    <Grid item lg={12} padding={1} textAlign="center"    >
+                    <Grid item lg={12} md={12} sm={12} xs={12} padding={1} textAlign="center"    >
                         <FormControl fullWidth  >
                             <InputLabel name="id_sexo" id="demo-simple-select-label">Sexo</InputLabel>
                             <Select

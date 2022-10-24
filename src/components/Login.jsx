@@ -18,7 +18,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
+  
   const { code, message, rol } = useSelector(state => state.login)
   const [dataLogin, setDataLogin] = useState({
     correo: "",

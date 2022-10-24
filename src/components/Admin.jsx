@@ -58,7 +58,7 @@ const Admin = () => {
 
         <Grid container direction="row" alignItems="center" justifyContent='center' >
 
-          <Grid container border={1} sx={useStyle} marginTop={2} md={3} xs={6}  >
+          <Grid container  sx={useStyle} marginTop={2} xl={3} lg={3} md={3.5} sm={8} xs={9}  >
 
             <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
              Informe
@@ -79,11 +79,7 @@ const Admin = () => {
 
           </Grid>
 
-
-
-
-
-          <Grid container border={1} sx={useStyle} marginLeft={2} marginTop={2} md={3} xs={6}>
+          <Grid container  sx={useStyle} marginLeft={2} xl={3} marginTop={2} lg={3} md={3.5} sm={8} xs={9}>
             <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
             Crear Usuario
             </Typography>
@@ -104,7 +100,7 @@ const Admin = () => {
           </Grid>
 
 
-          <Grid container border={1} sx={useStyle} marginLeft={2} marginTop={2} md={3} xs={6} >
+          <Grid container  sx={useStyle} marginLeft={2} marginTop={2} xl={3} lg={3} md={3.5} sm={8} xs={9} >
 
             <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
               Semestre
@@ -124,6 +120,7 @@ const Admin = () => {
             </Link>
             
           </Grid>
+
 
         </Grid>
 
