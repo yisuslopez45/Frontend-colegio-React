@@ -1,5 +1,5 @@
 
-import { Alert, Button, Grid, Tooltip, Typography } from '@mui/material'
+import { Alert, Button, Grid, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -52,6 +52,9 @@ const EditarRegistro = () => {
     const [notificacion2, setNotificacion2] = useState(0)
     const [bandera, setBandera] = useState(0)
 
+    const theme = useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"))
+
 
     const queryGet = async (url, funcion) => {
 
@@ -80,12 +83,14 @@ const EditarRegistro = () => {
         {
             field: 'asignatura',
             headerName: 'Asignatura',
+            minWidth: 150,
             flex: 1
         },
 
         {
             field: "horas_dictadas",
             headerName: 'Horas Dictadas',
+            minWidth: 150,
             flex: 1
 
         },
@@ -93,12 +98,14 @@ const EditarRegistro = () => {
         {
             field: "tema_dictado",
             headerName: 'Tema dictado',
+            minWidth: 150,
             flex: 1
 
         },
         {
             field: "num_estudiantes",
             headerName: 'Numero de estudiantes',
+            minWidth: 150,
             flex: 1
 
 
@@ -108,6 +115,7 @@ const EditarRegistro = () => {
         {
             field: 'observacion',
             headerName: 'Observaciónes',
+            minWidth: 150,
             flex: 1
         },
 
@@ -115,6 +123,7 @@ const EditarRegistro = () => {
         {
             field: 'actions',
             headerName: 'Acciones',
+            minWidth: 150,
             flex: 1,
             headerClassName: 'super-app-theme--header',
             headerAlign: 'center',
@@ -176,56 +185,53 @@ const EditarRegistro = () => {
 
     return (
 
-        <Grid container direction="column" >
+        <>
 
             <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={10} paddingBottom={15} >
 
-                <Grid item style={{ width: "1400px" }} >
+                <Grid item width={"100%"}  >
 
-                    <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
-                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}  >
+                    <Grid container direction="column" alignItems="center" justifyContent='center' marginTop={5} paddingLeft={isMatch ? 5 : 25} paddingRight={isMatch ? 5 : 25}>
+
+                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}   >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                 Programación Semestre
                             </Typography>
                         </Grid>
 
-                        {
-                            rowsData.length !== 0 && (
 
-                                <Grid item lg={12} padding={1}     >
 
-                                    <div style={{ height: 400, width: '100%' }}>
+                        <Grid item width={"100%"} padding={1}  >
 
-                                        <DataGrid
-                                            rows={rowsData}
-                                            columns={columns}
-                                            sx={table}
-                                            style={{ fontSize: "15px", fontWeight: "bold" }}
-                                            pageSize={5}
-                                            getRowId={(row) => row.id_registro}
+                            {
+                                rowsData.length !== 0 ? (
 
-                                        />
+                                    <DataGrid
+                                        autoHeight
+                                        rows={rowsData}
+                                        columns={columns}
+                                        sx={table}
+                                        style={{ fontSize: "15px", fontWeight: "bold" }}
+                                        pageSize={5}
+                                        getRowId={(row) => row.id_registro}
 
-                                    </div>
-                                </Grid>
+                                    />
+                                ) : (
 
+                             <Grid container xs={12} padding={1} justifyContent="center" alignItems="center" style={{ backgroundColor: "#77BFA3", height: "200px" }}  >
+
+                                <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
+                                    No tiene registros ingresados
+                                </Typography>
+
+                             </Grid>
                             )
-                        }
+                            }
 
-                        {
-                            rowsData.length === 0 && (
 
-                                <Grid container lg={12} padding={1} justifyContent="center" alignItems="center" style={{ backgroundColor: "#77BFA3", height: "200px" }}  >
 
-                                    <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
-                                        No tiene registros ingresados
-                                    </Typography>
 
-                                </Grid>
-
-                            )
-                        }
-
+                        </Grid>
 
                         {
                             notificacion === 1 && (
@@ -269,7 +275,8 @@ const EditarRegistro = () => {
                 </Grid>
 
             </Grid>
-
+                        
+            
             {
                 modal && (
                     <EditarRegistroDialog filas={filas} setFilas={setFilas} setNotificacion={setNotificacion} setBandera={setBandera} bandera={bandera} modal={modal} setModal={setModal}></EditarRegistroDialog>
@@ -283,11 +290,11 @@ const EditarRegistro = () => {
             }
 
 
-
             <Footer></Footer>
 
 
-        </Grid>
+        </>
+
     )
 }
 

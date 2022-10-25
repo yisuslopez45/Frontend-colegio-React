@@ -177,19 +177,19 @@ const CrearUsuario = () => {
         switch (index) {
             case 1: return (
                 <>
-                    <Grid item lg={6} md={6}  sm={6} xs={6}padding={1}     >
+                    <Grid item lg={6} md={6}  sm={6} xs={12} padding={1}     >
                         <TextField sx={input} fullWidth value={nombres} onChange={handleChange} id="outlined-basic"name='nombres' label="Nombres" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}   >
+                    <Grid item lg={6} md={6} sm={6} xs={12} padding={1}   >
                         <TextField fullWidth id="outlined-basic" value={apellidos} onChange={handleChange}  name='apellidos' label="Apellidos" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} md={12} sm={12} xs={12} padding={1} textAlign="center"  >
                         <TextField fullWidth id="outlined-basic" value={direccion} onChange={handleChange}  name='direccion' label="Direccion" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}     >
+                    <Grid item lg={6} md={6} sm={6} xs={12} padding={1}     >
                         <TextField fullWidth id="outlined-basic" value={telefono} onChange={handleChange}  type="number" name='telefono' label="Telefono" variant="outlined" />
                     </Grid>
-                    <Grid item lg={6} md={6} sm={6} xs={6} padding={1}   >
+                    <Grid item lg={6} md={6} sm={6} xs={12} padding={1}   >
                         <TextField fullWidth id="outlined-basic" value={cedula} onChange={handleChange} type="number" name='cedula' label="Cedula" variant="outlined" />
                     </Grid>
                     <Grid item lg={12} md={12} sm={12} xs={12} padding={1} textAlign="center"    >
@@ -219,11 +219,11 @@ const CrearUsuario = () => {
 
             case 2: return (
                 <>
-                    <Grid item xs={6} padding={1} textAlign="center"  >
+                    <Grid item xs={12} sm={6} padding={1} textAlign="center"  >
                         <TextField fullWidth onChange={handleChange} value={ciudad} name='ciudad' id="outlined-basic" label="Ciudad" variant="outlined" />
                     </Grid>
 
-                    <Grid item xs={6} padding={1}     >
+                    <Grid item xs={12} sm={6} padding={1}     >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Rol</InputLabel>
                             <Select
@@ -242,7 +242,7 @@ const CrearUsuario = () => {
                         </FormControl>
                     </Grid>
 
-                    <Grid item xs={6} padding={1}     >
+                    <Grid item xs={12} sm={6} padding={1}     >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
                             <Select
@@ -262,7 +262,7 @@ const CrearUsuario = () => {
                         </FormControl>
                     </Grid>
 
-                    <Grid item xs={6} padding={1}   >
+                    <Grid item xs={12} sm={6} padding={1}   >
                         <FormControl fullWidth  >
                             <InputLabel id="demo-simple-select-label">Materia</InputLabel>
                             <Select
@@ -292,15 +292,15 @@ const CrearUsuario = () => {
 
                     </Grid>
 
-                    <Grid item xs={12} padding={1}     >
+                    <Grid item xs={12} sm={12} padding={1}     >
                         <TextField sx={input} fullWidth value={correo} onChange={handleChange} id="outlined-basic" name='correo' label="Correo" variant="outlined" />
                     </Grid>
 
-                    <Grid item xs={6} padding={1} textAlign="center"    >
+                    <Grid item xs={12} sm={6} padding={1} textAlign="center"    >
                         <TextField value={password} required fullWidth type="password" id="outlined-basic" label="Contraseña" onChange={handleChange} name='password' variant="outlined" />
                     </Grid>
 
-                    <Grid item xs={6} padding={1} textAlign="center"    >
+                    <Grid item xs={12} sm={6} padding={1} textAlign="center"    >
                         <TextField value={password2} required fullWidth  type="password" id="outlined-basic" name='password2' onChange={handleChange} label="confirmar Contraseña" variant="outlined" />
                     </Grid>
 

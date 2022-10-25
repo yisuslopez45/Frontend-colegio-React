@@ -26,12 +26,12 @@ const input = {
 
 
 const button2 = {
-    backgroundColor: "#405D72",
+    backgroundColor: "#D62828",
     width: "110px",
     height: "50px",
     color: "#FFFFFF",
     '&:hover': {
-        backgroundColor: "#2D314B",
+        backgroundColor: "#8E1A1A",
         transition: 'all 0.2s ease-in'
     }
 
@@ -39,11 +39,11 @@ const button2 = {
 
 
 
-const EliminarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera, modal, filas, setFilas }) => {
+const EliminarRegistroDialog = ({ setModal, setNotificacion, setBandera, bandera, modal, filas, setFilas }) => {
 
-    
+
     const queryDelete = async () => {
-        
+
         try {
             //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
             const { data } = await axiosClient.delete(`/eliminarRegistro/${filas.id_registro}`);
@@ -52,7 +52,7 @@ const EliminarRegistroDialog = ({ setModal, setNotificacion , setBandera , bande
             console.log(data)
 
             if (data.code === 1) {
-                setBandera(bandera+1)
+                setBandera(bandera + 1)
                 setModal(false)
                 setNotificacion(1)
             } else {
@@ -83,11 +83,11 @@ const EliminarRegistroDialog = ({ setModal, setNotificacion , setBandera , bande
                         Eliminar Registro
                     </Typography>
                 </Paper>
-                <Grid item style={{ width: "600px" }} marginTop={3} marginBottom={3} >
+                <Grid item marginTop={3} marginBottom={3} >
 
                     <Grid container direction="row" alignItems="center" justifyContent='center' >
 
-                        <Grid item xs={12} sm={12} style={{ textAlign: 'center', padding: '10px' }}>
+                        <Grid item xs={12} sm={6} style={{ textAlign: 'center', padding: '10px' }}>
 
                             <Button
                                 variant="contained"
@@ -97,18 +97,21 @@ const EliminarRegistroDialog = ({ setModal, setNotificacion , setBandera , bande
                                 Cancelar
                             </Button>
 
+                        
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} style={{ textAlign: 'center', padding: '10px' }}>
+
                             <Button
                                 variant="contained"
                                 color="primary"
                                 sx={button2}
                                 onClick={editarRegistro}
-                                style={{ marginLeft: '10px' }}
                             >
                                 Eliminar
                             </Button>
                         </Grid>
 
-                      
 
                     </Grid>
 

@@ -100,11 +100,11 @@ const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera
                         Editar Registro
                     </Typography>
                 </Paper>
-                <Grid item style={{ width: "600px" }} marginTop={3} marginBottom={3} >
+                <Grid item  marginTop={3} marginBottom={3} >
 
                     <Grid container direction="row" alignItems="center" justifyContent='center' >
 
-                        <Grid item lg={6} padding={1}     >
+                        <Grid item sm={6} xs={12} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Horas Dictadas</InputLabel>
                                 <Select
@@ -124,16 +124,16 @@ const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item lg={6} padding={1} textAlign="center"  >
+                        <Grid item sm={6}  xs={12}  padding={1} textAlign="center"  >
                             <TextField sx={input} name='num_estudiantes'
                                 onChange={handleChange}
                                 value={filas.num_estudiantes} fullWidth id="outlined-basic" label="Estudiantes" variant="outlined" />
                         </Grid>
-                        <Grid item lg={12} padding={1}   >
+                        <Grid item sm={12}  xs={12} padding={1}   >
                             <TextField name='tema_dictado' onChange={handleChange} value={filas.tema_dictado} sx={input} fullWidth id="outlined-basic" label="Tema Dictado" variant="outlined" />
                         </Grid>
 
-                        <Grid item lg={12} padding={1}     >
+                        <Grid item sm={12}  xs={12} padding={1}     >
                             <TextField sx={input} multiline
                                 onChange={handleChange}
                                 rows={4} fullWidth name='observacion' value={filas.observacion} id="outlined-basic" label="Observaciones" variant="outlined" />
@@ -141,7 +141,7 @@ const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera
 
 
 
-                        <Grid item xs={12} sm={12} style={{ textAlign: 'end', padding: '10px' }}>
+                        <Grid item sm={12}  xs={12}  style={{ textAlign: 'end', padding: '10px' }}>
 
                             <Button
                                 variant="contained"

@@ -137,12 +137,12 @@ const CrearRegistro = () => {
 
 
                     <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
-                        <Grid item lg={12} padding={1} textAlign="center" paddingBottom={5}  >
+                        <Grid item xs={12} padding={1} textAlign="center" paddingBottom={5}  >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                 Crear Registro
                             </Typography>
                         </Grid>
-                        <Grid item lg={6} padding={1}     >
+                        <Grid item xs={6} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Horas Dictadas</InputLabel>
                                 <Select
@@ -163,13 +163,13 @@ const CrearRegistro = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item lg={6} padding={1} textAlign="center"  >
+                        <Grid item xs={6} padding={1} textAlign="center"  >
                             <TextField sx={input} fullWidth id="outlined-basic" value={num_estudiantes} onChange={handleChange} name='num_estudiantes' label="Numero estudiantes" variant="outlined" />
                         </Grid>
-                        <Grid item lg={12} padding={1}   >
+                        <Grid item xs={12} padding={1}   >
                             <TextField sx={input} fullWidth id="outlined-basic" value={tema_dictado} onChange={handleChange} name='tema_dictado' label="Tema Dictado" variant="outlined" />
                         </Grid>
-                        <Grid item lg={12} padding={1}     >
+                        <Grid item xs={12} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Asignatura</InputLabel>
                                 <Select
@@ -188,12 +188,12 @@ const CrearRegistro = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item lg={12} padding={1}     >
+                        <Grid item xs={12} padding={1}     >
                             <TextField sx={input} multiline
                                 rows={4} fullWidth id="outlined-basic" value={observacion} onChange={handleChange} name='observacion' label="Observaciones" variant="outlined" />
                         </Grid>
 
-                        <Grid item lg={12} padding={1} textAlign="center"    >
+                        <Grid item xs={12} padding={1} textAlign="center"    >
                             <Button size="large" onClick={enviarFormulario} sx={button2} variant="contained">Crear Registro</Button>
                         </Grid>
 

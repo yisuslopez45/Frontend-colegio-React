@@ -135,13 +135,13 @@ const AsignarDocente = () => {
 
 
                     <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
-                        <Grid item xs={12} padding={1} textAlign="center" paddingBottom={5}  >
+                        <Grid item xs={12} sm={12} padding={1} textAlign="center" paddingBottom={5}  >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                 Programación Semestre
                             </Typography>
                         </Grid>
 
-                        <Grid item xs={6} padding={1}     >
+                        <Grid item xs={12} sm={6} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Materia</InputLabel>
                                 <Select
@@ -163,7 +163,7 @@ const AsignarDocente = () => {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={6} padding={1}   >
+                        <Grid item xs={12} sm={6} padding={1}   >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Intensidad Curso</InputLabel>
                                 <Select
@@ -186,7 +186,7 @@ const AsignarDocente = () => {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={12} padding={1} textAlign="center"  >
+                        <Grid item xs={12} sm={12} padding={1} textAlign="center"  >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Semestre a cursar</InputLabel>
                                 <Select
@@ -214,11 +214,11 @@ const AsignarDocente = () => {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={12} padding={1}     >
+                        <Grid item xs={12} sm={12} padding={1}     >
                             <TextField fullWidth value={precio_hora} onChange={handleChange} id="outlined-basic" name='precio_hora' label="Precio Hora" variant="outlined" />
                         </Grid>
                         
-                        <Grid item xs={12} padding={1}     >
+                        <Grid item xs={12} sm={12} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Docente a cargo</InputLabel>
                                 <Select
@@ -238,7 +238,7 @@ const AsignarDocente = () => {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={12} padding={1} textAlign="center"    >
+                        <Grid item xs={12} sm={12} padding={1} textAlign="center"    >
                             <Button size="large" onClick={() => { enviarFormulario() }} sx={button2} variant="contained">Crear Semestre</Button>
                         </Grid>
 
