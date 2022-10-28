@@ -1,4 +1,5 @@
 import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -46,6 +47,7 @@ const CrearRegistro = () => {
 
     const [materias, setMaterias] = useState([])
     const [notificacion, setNotificacion] = useState(0)
+    const { enqueueSnackbar } = useSnackbar(); 
 
     const { id_usuario } = useSelector(state => state.login)
 
@@ -95,7 +97,7 @@ const CrearRegistro = () => {
         if (id_materia != "" && id_docente != "" && horas_dictadas != "" && tema_dictado != "" && num_estudiantes != "" && observacion != "") {
             queryPost()
         } else {
-            setNotificacion(3)
+            enqueueSnackbar("Campos vacios", { variant: 'error' })
         }
     }
 
@@ -107,14 +109,14 @@ const CrearRegistro = () => {
 
             console.log(data)
             if (data.code === 1) {
-                setNotificacion(1)
+                enqueueSnackbar("Se inserto la asistencia correctamente", { variant: 'success' })
                 limpiarCampos()
             } else {
-                setNotificacion(2)
+                enqueueSnackbar("Ocurrio un error en la inserción", { variant: 'error' })
             }
 
         } catch (err) {
-            setNotificacion(2)
+            enqueueSnackbar("Ocurrio un error en la API de insertar", { variant: 'error' })
         }
 
     }
@@ -200,29 +202,6 @@ const CrearRegistro = () => {
                     </Grid>
 
 
-                    {
-                        notificacion === 1 && (
-                            <Alert variant="filled" severity="success">
-                                Se inserto la asistencia correctamente
-                            </Alert>
-                        )
-                    }
-
-                    {
-                        notificacion === 2 && (
-                            <Alert variant="filled" severity="error">
-                                Ocurrio un error en la insercion
-                            </Alert>
-                        )
-                    }
-
-                    {
-                        notificacion === 3 && (
-                            <Alert variant="filled" severity="error">
-                                Campos vacios
-                            </Alert>
-                        )
-                    }
 
                 </Grid>
 

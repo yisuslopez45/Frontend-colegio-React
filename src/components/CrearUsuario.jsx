@@ -55,6 +55,8 @@ const CrearUsuario = () => {
     const [banderaPassword, setBanderaPassword] = useState(false)
     const [notificacion, setNotificacion] = useState(0)
     const [SkippedFormulario, setSkippedFormulario] = useState(0)
+    const { enqueueSnackbar } = useSnackbar();
+
 
     const [datosUsuario, setdatosUsuario] = useState({
         nombres: "",
@@ -99,12 +101,14 @@ const CrearUsuario = () => {
             if (data.code === "1") {
                 setNotificacion(1)
                 limpiarCampos()
+                enqueueSnackbar("Se creo el usuario correctamente", { variant: 'success' })
+
             } else {
-                setNotificacion(2)
+                enqueueSnackbar("Ocurrió un error en la creación del usuario", { variant: 'error' })
             }
 
         } catch (err) {
-            setNotificacion(2)
+            enqueueSnackbar("Ocurrió un error en la API de creación del usuario", { variant: 'error' })
         }
 
     }
@@ -329,8 +333,7 @@ const CrearUsuario = () => {
             setSkipped(newSkipped);
 
         }else{
-
-            setNotificacion(3)
+            enqueueSnackbar("Campos vacios", { variant: 'error' })
         }
 
         console.log(steps.length-1)
@@ -340,7 +343,7 @@ const CrearUsuario = () => {
             if (ciudad.trim() != "" && id_profesion !== "" && id_materia != "" && password.trim() != "" && password2.trim() != "" && cod_rol !== ""  && correo !== "") {
                 queryPost()
             }else{
-                setNotificacion(3)
+                enqueueSnackbar("Campos vacios", { variant: 'error' })
             }  
         }
     };
@@ -464,39 +467,7 @@ const CrearUsuario = () => {
 
                     </Grid>
 
-                    {
-                        banderaPassword && (
-                            <Alert variant="filled" severity="error">
-                                Las contraseñas no coinciden
-                            </Alert>
-                        )
-                    }
-
-                    {
-                        notificacion === 1 && (
-                            <Alert variant="filled" severity="success">
-                                Se registro el usuario Correctamente
-                            </Alert>
-                        )
-                    }
-
-                    {
-                        notificacion === 2 && (
-                            <Alert variant="filled" severity="error">
-                                Ocurrio un error en el registro
-                            </Alert>
-                        )
-                    }
-
-{
-                        notificacion === 3 && (
-                            <Alert variant="filled" severity="error">
-                               Campos Vacios
-                            </Alert>
-                        )
-                    }
-
-
+                  
 
                 </Grid>
 

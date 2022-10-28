@@ -48,8 +48,6 @@ const EditarRegistro = () => {
     const [rowsData, setRows] = useState([])
     const [filas, setFilas] = useState([])
     const { id_usuario } = useSelector(state => state.login)
-    const [notificacion, setNotificacion] = useState(0)
-    const [notificacion2, setNotificacion2] = useState(0)
     const [bandera, setBandera] = useState(0)
 
     const theme = useTheme();
@@ -233,39 +231,7 @@ const EditarRegistro = () => {
 
                         </Grid>
 
-                        {
-                            notificacion === 1 && (
-                                <Alert variant="filled" severity="success">
-                                    Se Actualizo la asistencia correctamente
-                                </Alert>
-                            )
-                        }
-
-                        {
-                            notificacion === 2 && (
-                                <Alert variant="filled" severity="error">
-                                    Ocurrio un error en la actualizacion
-                                </Alert>
-                            )
-                        }
-
-                        {
-                            notificacion2 === 1 && (
-                                <Alert variant="filled" severity="success">
-                                    Se Elimino el registro correctamente
-                                </Alert>
-                            )
-                        }
-
-                        {
-                            notificacion2 === 2 && (
-                                <Alert variant="filled" severity="error">
-                                    Ocurrio un error en la eliminacion
-                                </Alert>
-                            )
-                        }
-
-
+                      
 
 
                     </Grid>
@@ -279,13 +245,13 @@ const EditarRegistro = () => {
             
             {
                 modal && (
-                    <EditarRegistroDialog filas={filas} setFilas={setFilas} setNotificacion={setNotificacion} setBandera={setBandera} bandera={bandera} modal={modal} setModal={setModal}></EditarRegistroDialog>
+                    <EditarRegistroDialog filas={filas} setFilas={setFilas}  setBandera={setBandera} bandera={bandera} modal={modal} setModal={setModal}></EditarRegistroDialog>
                 )
             }
 
             {
                 modal2 && (
-                    <EliminarRegistroDialog filas={filas} setFilas={setFilas} setNotificacion={setNotificacion2} setBandera={setBandera} bandera={bandera} modal={modal2} setModal={setModal2}></EliminarRegistroDialog>
+                    <EliminarRegistroDialog filas={filas} setFilas={setFilas}  setBandera={setBandera} bandera={bandera} modal={modal2} setModal={setModal2}></EliminarRegistroDialog>
                 )
             }
 

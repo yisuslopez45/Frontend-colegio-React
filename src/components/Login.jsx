@@ -1,7 +1,7 @@
-import { Alert, AlertTitle, Button, Card, CardMedia, FormControl, Grid, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Alert, AlertTitle, Button, Card, CardMedia, CircularProgress, FormControl, Grid, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { green } from '@mui/material/colors';
 
 //ICON
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -11,40 +11,87 @@ import { loginIniciar } from '../redux/action/LoginAction';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Box } from '@mui/system';
+import { useSnackbar } from 'notistack';
+
+
 
 export const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [loading2, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+  const timer = React.useRef();
 
   const theme = useTheme();
-  
-  const { code, message, rol } = useSelector(state => state.login)
+
+  const buttonSx = {
+
+    bgcolor :'#2D3142',
+    '&:hover': {
+      bgcolor: "#2D3142",
+    },
+
+    ...(success && {
+      bgcolor: green[500],
+      '&:hover': {
+        bgcolor: "#AAAAAA",
+      },
+    }),
+  };
+
+  const { code, message, rol , loading } = useSelector(state => state.login)
   const [dataLogin, setDataLogin] = useState({
     correo: "",
     password: ""
   })
 
-  console.log(code)
-
+  
   useEffect(() => {
     if (rol === 2) {
       return navigate("/Admin")
     }
-
+    
     if (rol === 1) {
       return navigate("/Docente")
     }
-
+    
   }, [rol, navigate]);
-
+  
   const handleChange = (e) => {
-
+    
     setDataLogin({
       ...dataLogin,
       [e.target.name]: e.target.value
     })
   }
+  
+  const handleButtonClick = () => {
+    
+    dispatch(loginIniciar(dataLogin))
+    
+    if (!loading2) {
+      setSuccess(false);
+      setLoading(true);
+    }
+  };
+  
+  useEffect(()=>{
+
+    if(code === "1" ){
+      setSuccess(true);
+      setLoading(false);
+      enqueueSnackbar(message, { variant: 'success' })
+    }
+
+     if(code === -1 ){
+      setLoading(false);
+      enqueueSnackbar(message, { variant: 'error' })
+    }
+  },[code ])
 
 
 
@@ -114,15 +161,42 @@ export const Login = () => {
 
 
 
+          <Box sx={{ m: 1, position: 'relative' , width:"100%"}}  >
 
-          <Button style={{ marginTop: '60px', backgroundColor: '#2D3142' }}
+            <Button 
+              fullWidth
+              variant="contained"
+              sx={buttonSx}
+              disabled={loading2}
+              onClick={handleButtonClick}
+
+            >Ingresar
+            </Button>
+
+
+            {loading2 && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: green[500],
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-12px',
+                  marginLeft: '-12px',
+                }}
+              />
+            )}
+          </Box>
+
+          {/* <Button style={{ marginTop: '60px', backgroundColor: '#2D3142' }}
             fullWidth
             variant="contained"
             onClick={() => {
               dispatch(loginIniciar(dataLogin))
             }}
           >Login
-          </Button>
+          </Button> */}
 
           <Link
             marginTop='100px'
@@ -135,27 +209,10 @@ export const Login = () => {
 
         </FormControl>
 
+
       </Grid>
-      {code === 0 && (
-        <Alert variant="filled" severity="success">
-          This is a success alert — check it out!
-        </Alert>
-      )
-      }
 
-
-
-
-
-      {code === -1 && (
-        <Alert variant="filled" severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {message}
-        </Alert>
-      )
-      }
-
-
+  
     </Grid>
   )
 }

@@ -1,5 +1,6 @@
 
-import { Alert, Button, CardMedia, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { Alert, Button, CardMedia, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -7,6 +8,8 @@ import React, { useEffect, useState } from 'react'
 import axiosClient from '../config/AxiosClient'
 import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
+import { green } from '@mui/material/colors';
+import { Box } from '@mui/system'
 
 
 
@@ -50,7 +53,10 @@ const AsignarDocente = () => {
 
     const [listMaterias, setlistaMaterias] = useState([])
     const [docentes, setDocentes] = useState([])
-    const [notificacion, setNotificacion] = useState(0)
+    const { enqueueSnackbar } = useSnackbar();
+    const [loading2, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
+
 
     const [datosUsuario, setdatosUsuario] = useState({
         intencidad: "",
@@ -77,13 +83,24 @@ const AsignarDocente = () => {
 
     }
 
-    const enviarFormulario = () => {
+    const handleButtonClick = () => {
+
         if (id_materia != "" && precio_hora != "" && intencidad != "" && id_docente != "" && semestre != "") {
             queryPost()
         } else {
-            setNotificacion(3)
+            setLoading(false)
+            enqueueSnackbar("Campos vacíos", { variant: 'error' })
         }
-    }
+
+
+        // if (!loading2) {
+        //     setSuccess(false);
+        //     setLoading(true);
+        // }
+    };
+
+    // const enviarFormulario = () => {
+    // }
 
     const queryPost = async () => {
 
@@ -95,13 +112,18 @@ const AsignarDocente = () => {
 
             console.log(data)
             if (data.code === 1) {
-                setNotificacion(1)
-            }else{
-                setNotificacion(2)
+                enqueueSnackbar("Se creo la asignación correctamente", { variant: 'success' })
+                setLoading(false)
+
+            } else {
+                enqueueSnackbar("Ocurrió un error en la asignación del semestre", { variant: 'error' })
+                setLoading(false)
+
             }
 
         } catch (err) {
-            setNotificacion(2)
+            enqueueSnackbar("Ocurrió un error en la API de asignación del semestre", { variant: 'error' })
+            setLoading(false)
         }
     }
 
@@ -217,7 +239,7 @@ const AsignarDocente = () => {
                         <Grid item xs={12} sm={12} padding={1}     >
                             <TextField fullWidth value={precio_hora} onChange={handleChange} id="outlined-basic" name='precio_hora' label="Precio Hora" variant="outlined" />
                         </Grid>
-                        
+
                         <Grid item xs={12} sm={12} padding={1}     >
                             <FormControl fullWidth  >
                                 <InputLabel id="demo-simple-select-label">Docente a cargo</InputLabel>
@@ -239,34 +261,41 @@ const AsignarDocente = () => {
                         </Grid>
 
                         <Grid item xs={12} sm={12} padding={1} textAlign="center"    >
-                            <Button size="large" onClick={() => { enviarFormulario() }} sx={button2} variant="contained">Crear Semestre</Button>
+
+                            <Box sx={{ m: 1, position: 'relative', width: "100%" }}  >
+
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    sx={button2}
+                                    disabled={loading2}
+                                    onClick={handleButtonClick}
+
+                                >Ingresar
+                                </Button>
+
+
+                                {loading2 && (
+                                    <CircularProgress
+                                        size={24}
+                                        sx={{
+                                            color: green[500],
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            marginTop: '-12px',
+                                            marginLeft: '-12px',
+                                        }}
+                                    />
+                                )}
+                            </Box>
+
+                        {/* <Button size="large" onClick={() => { enviarFormulario() }} sx={button2} variant="contained">Crear Semestre</Button> */}
                         </Grid>
 
                     </Grid>
 
-                    {
-                        notificacion === 1 && (
-                            <Alert variant="filled" severity="success">
-                                Se creo el registro correctamente
-                            </Alert>
-                        )
-                    }
 
-                    {
-                        notificacion === 2 && (
-                            <Alert variant="filled" severity="error">
-                                Ocurrio un error en el registro
-                            </Alert>
-                        )
-                    }
-
-                    {
-                        notificacion === 3 && (
-                            <Alert variant="filled" severity="error">
-                                Campos Vacios
-                            </Alert>
-                        )
-                    }
 
                 </Grid>
 

@@ -11,12 +11,14 @@ import InformeAdmin from "./components/InformeAdmin";
 import CrearRegistro from "./components/CrearRegistro";
 import EditarRegistro from "./components/EditarRegistro";
 import Docente from "./components/Docente";
+import { SnackbarProvider } from "notistack";
 
 const App = () => {
   return <>
 
     <BrowserRouter>
-      
+    <SnackbarProvider maxSnack={2}>
+
       <Navbar/>
 
       <Routes>
@@ -32,6 +34,9 @@ const App = () => {
       
         
       </Routes>
+
+    </SnackbarProvider>
+      
 
 
 

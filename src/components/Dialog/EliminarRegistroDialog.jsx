@@ -1,4 +1,5 @@
 import { Alert, Button, Dialog, DialogContent, FormControl, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
 import React from 'react'
 import { useState } from 'react'
 import axiosClient from '../../config/AxiosClient'
@@ -40,7 +41,8 @@ const button2 = {
 
 
 const EliminarRegistroDialog = ({ setModal, setNotificacion, setBandera, bandera, modal, filas, setFilas }) => {
-
+    
+    const { enqueueSnackbar } = useSnackbar(); 
 
     const queryDelete = async () => {
 
@@ -54,13 +56,13 @@ const EliminarRegistroDialog = ({ setModal, setNotificacion, setBandera, bandera
             if (data.code === 1) {
                 setBandera(bandera + 1)
                 setModal(false)
-                setNotificacion(1)
+                enqueueSnackbar("Se elimino el registro correctamente", { variant: 'success' })
             } else {
-                setNotificacion(2)
+                enqueueSnackbar("Ocurrió un error en la eliminación", { variant: 'error' })
             }
 
         } catch (err) {
-            setNotificacion(2)
+            enqueueSnackbar("Ocurrió un error en la API de eliminación", { variant: 'error' })
         }
 
     }

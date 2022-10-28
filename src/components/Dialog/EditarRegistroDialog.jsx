@@ -1,4 +1,5 @@
 import { Alert, Button, Dialog, DialogContent, FormControl, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
 import React from 'react'
 import { useState } from 'react'
 import axiosClient from '../../config/AxiosClient'
@@ -39,9 +40,9 @@ const button2 = {
 
 
 
-const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera, modal, filas, setFilas }) => {
+const EditarRegistroDialog = ({ setModal , setBandera , bandera, modal, filas, setFilas }) => {
 
-    
+    const { enqueueSnackbar } = useSnackbar(); 
 
     const datos = {
         id_registro: filas.id_registro, 
@@ -58,9 +59,8 @@ const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera
         })
     }
 
-    const queryPost = async () => {
+    const queryPut = async () => {
         
-        console.log(datos)
         try {
             //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
             const { data } = await axiosClient.put('/actualizarRegistro', datos);
@@ -71,19 +71,19 @@ const EditarRegistroDialog = ({ setModal, setNotificacion , setBandera , bandera
             if (data.code === 1) {
                 setBandera(bandera+1)
                 setModal(false)
-                setNotificacion(1)
+                enqueueSnackbar("Se edito Correctamente", { variant: 'success' })
             } else {
-                setNotificacion(2)
+                enqueueSnackbar("Ocurrio un error al editar registro", { variant: 'error' })
             }
 
         } catch (err) {
-            setNotificacion(2)
+            enqueueSnackbar("Ocurrio un error en la API de actualizar", { variant: 'error' })
         }
 
     }
 
     const editarRegistro = () => {
-        queryPost()
+        queryPut()
     }
 
     return (

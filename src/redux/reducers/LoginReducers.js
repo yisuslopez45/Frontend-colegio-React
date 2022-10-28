@@ -17,12 +17,13 @@ export default function loginReducers(state = initialState, action) {
         case LOGIN_START:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                code: ""
             }
         case LOGIN_START_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loading: true,
                 nombre_usuario: action.payload.nombreUsuario,
                 message: action.payload.msg,
                 rol: action.payload.idRol,
@@ -42,7 +43,7 @@ export default function loginReducers(state = initialState, action) {
         case CERRAR_LOGIN_SUCCESS:
             return {
                 ...state,
-                loading: '',
+                loading: false,
                 nombre_usuario: '',
                 message: '',
                 rol: '',
