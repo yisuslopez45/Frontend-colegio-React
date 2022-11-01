@@ -70,13 +70,17 @@ export const Login = () => {
   }
   
   const handleButtonClick = () => {
-    
-    dispatch(loginIniciar(dataLogin))
-    
-    if (!loading2) {
-      setSuccess(false);
-      setLoading(true);
+    if(dataLogin.correo.trim() !== "" && dataLogin.password.trim() !== ""){
+
+      dispatch(loginIniciar(dataLogin))
+      if (!loading2) {
+        setSuccess(false);
+        setLoading(true);
+      }
+    }else{
+      enqueueSnackbar("Complete todos los campos", { variant: 'error' })
     }
+    
   };
   
   useEffect(()=>{
