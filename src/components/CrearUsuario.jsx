@@ -375,7 +375,7 @@ const CrearUsuario = () => {
 
         <Grid container direction="column" >
 
-            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={15} paddingBottom={15} >
+            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={10} paddingBottom={5} >
 
                 <Grid item style={{ width: "600px" }} >
 

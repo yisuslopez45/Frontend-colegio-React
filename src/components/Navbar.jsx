@@ -84,19 +84,19 @@ export const Navbar = () => {
                       </Link> */}
 
                       <Link to="/InformeAdmin" style={{ textDecoration: "none" }}>
-                        <Button sx={button} style={{ color: "white" }} variant="text">Informe</Button>
+                        <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text">Informe</Button>
                       </Link>
 
                       <Link to="/CrearUsuario" style={{ textDecoration: "none" }}>
-                        <Button sx={button} style={{ color: "white" }} variant="text">Crear Usuario</Button>
+                        <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text">Crear Usuario</Button>
                       </Link>
 
                       <Link to="/Semestre" style={{ textDecoration: "none" }} >
-                        <Button sx={button} style={{ color: "white" }} variant="text"> Semestre</Button>
+                        <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text"> Semestre</Button>
                       </Link>
 
                       <Link to="/Login" style={{ textDecoration: "none" }} >
-                          <Button sx={button} style={{ color: "white" }} variant="text" onClick={limpiarRedux} startIcon={<AccountCircleIcon/>} >Cerrar</Button>
+                          <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text" onClick={limpiarRedux} startIcon={<AccountCircleIcon/>} >Cerrar</Button>
                         </Link>
                     </>
 
@@ -111,15 +111,15 @@ export const Navbar = () => {
                 
 
                         <Link to="/CrearRegistro" style={{ textDecoration: "none" }} >
-                          <Button sx={button} style={{ color: "white" }} variant="text"> Registro</Button>
+                          <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text"> Registro</Button>
                         </Link>
 
                         <Link to="/EditarRegistro" style={{ textDecoration: "none" }} >
-                          <Button sx={button} style={{ color: "white" }} variant="text">Editar</Button>
+                          <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text">Editar</Button>
                         </Link>
 
                         <Link to="/Login" style={{ textDecoration: "none" }} >
-                          <Button sx={button} style={{ color: "white" }} variant="text" onClick={limpiarRedux} startIcon={<AccountCircleIcon/>} >Cerrar</Button>
+                          <Button sx={button} style={{ color: "white",  fontWeight: "bold" }} variant="text" onClick={limpiarRedux} startIcon={<AccountCircleIcon/>} >Cerrar</Button>
                         </Link>
 
                       </>

@@ -171,6 +171,8 @@ const EditarRegistroDialog = ({ setModal , setBandera , bandera, modal, filas, s
             </DialogContent>
         </Dialog >
     )
+
+
 }
 
 export default EditarRegistroDialog

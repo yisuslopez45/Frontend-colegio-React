@@ -132,13 +132,13 @@ const CrearRegistro = () => {
 
         <Grid container direction="column" >
 
-            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={10} paddingBottom={15} >
+            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={5} paddingBottom={5} >
 
                 <Grid item style={{ width: "600px" }} >
 
 
 
-                    <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={5} padding={5}>
+                    <Grid container direction="row" alignItems="center" justifyContent='center' marginTop={3} padding={5}>
                         <Grid item xs={12} padding={1} textAlign="center" paddingBottom={5}  >
                             <Typography style={{ fontSize: "25px", fontWeight: "bold" }} >
                                 Crear Registro

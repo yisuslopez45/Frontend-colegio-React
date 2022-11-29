@@ -204,16 +204,17 @@ const EditarRegistro = () => {
                             {
                                 rowsData.length !== 0 ? (
 
-                                    <DataGrid
-                                        autoHeight
-                                        rows={rowsData}
-                                        columns={columns}
-                                        sx={table}
-                                        style={{ fontSize: "15px", fontWeight: "bold" }}
-                                        pageSize={5}
-                                        getRowId={(row) => row.id_registro}
+                                        <DataGrid
+                                            autoHeight
+                                            rows={rowsData}
+                                            columns={columns}
+                                            sx={table}
+                                            style={{ fontSize: "15px", fontWeight: "bold", height: 350 }}
+                                            pageSize={5}
+                                            getRowId={(row) => row.id_registro}
+    
+                                        />
 
-                                    />
                                 ) : (
 
                              <Grid container xs={12} padding={1} justifyContent="center" alignItems="center" style={{ backgroundColor: "#77BFA3", height: "200px" }}  >

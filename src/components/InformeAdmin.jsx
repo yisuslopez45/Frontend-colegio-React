@@ -176,7 +176,7 @@ const InformeAdmin = () => {
 
         <>
 
-            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={10} paddingBottom={15} >
+            <Grid container style={{ backgroundColor: "white" }} alignItems="center" justifyContent='center' paddingTop={8} paddingBottom={5} >
 
                 <Grid item width={"100%"}  >
 

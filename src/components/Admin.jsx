@@ -1,5 +1,5 @@
 
-import { Button, CardMedia, Grid, IconButton, keyframes, Paper, Typography } from '@mui/material'
+import { Button, CardMedia, Grid, IconButton, keyframes, Paper, Typography, useMediaQuery, useTheme } from '@mui/material'
 import imagen1 from '../img/Designer.png'
 import imagen2 from '../img/Data.png'
 import imagen3 from '../img/online.png'
@@ -18,6 +18,7 @@ const button = {
   backgroundColor: "#2d3142",
   width: "130px",
   height: "50px",
+  marginBottom : "10px",
   '&:hover': {
     backgroundColor: "#2d3142",
     transition: 'all 0.2s ease-in',
@@ -26,26 +27,46 @@ const button = {
   }
 }
 
-const useStyle = {
-  backgroundColor: "#77BFA3",
-  height: "500px",
-  width: "400px",
-  alignItems: "center",
-  justifyContent: 'center',
-  color: "#FFFFFF",
-  borderRadius: "20px 20px 20px 20px",
-  '&:hover': {
-    transition: 'all 0.5s ease-in',
-    transform: 'scale(1.03)'
-  },
-
-}
-
 
 
 
 const Admin = () => {
 
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
+ 
+
+  const useStyle = {
+    backgroundColor: "#77BFA3",
+    height: "400px",
+    width: "400px",
+    alignItems: "center",
+    justifyContent: 'center',
+    color: "#FFFFFF",
+    borderRadius: "20px 20px 20px 20px",
+    '&:hover': {
+      transition: 'all 0.5s ease-in',
+      transform: 'scale(1.03)'
+    },
+    ...(isMatch && {
+      height: "300px",
+      width: "300px",
+    }
+    )
+
+  }
+
+  const styleimgcard = {
+    height:"280px",
+    width:"280px",
+    ...(isMatch && {
+      height: "200px",
+      width: "260px",
+    }
+    ),
+  
+   
+  }
 
   return (
 
@@ -54,55 +75,53 @@ const Admin = () => {
     <Grid container direction="column" >
 
 
-      <Grid item style={{ backgroundColor: "white" }} paddingTop={20} paddingBottom={15} >
+      <Grid item style={{ backgroundColor: "white" }} paddingTop={ isMatch ? 10 : 20} paddingBottom={ isMatch ? 10 : 15} >
 
         <Grid container direction="row" alignItems="center" justifyContent='center' >
 
-          <Grid container  sx={useStyle} marginTop={2} xl={3} lg={3} md={3.5} sm={8} xs={9}  >
+          <Grid container sx={useStyle} marginTop={2} xl={2} lg={3} md={3.5} sm={4} xs={7}  >
 
-            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
-             Informe
+            <Typography style={{ fontSize: "25px", fontWeight: "bold", color: "#2D3142" }}>
+              Informe
             </Typography>
             <CardMedia
               component="img"
               src={imagen1}
               alt="green"
-              height="350px"
-              width="300px"
+              sx={styleimgcard}
 
             />
-              <Link to="/InformeAdmin" style={{ textDecoration: "none" }}>
+            <Link to="/InformeAdmin" style={{ textDecoration: "none" }}>
               <Button sx={button} variant="contained">Ver</Button>
             </Link>
-            
+
 
 
           </Grid>
 
-          <Grid container  sx={useStyle} marginLeft={2} xl={3} marginTop={2} lg={3} md={3.5} sm={8} xs={9}>
-            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
-            Crear Usuario
+          <Grid container sx={useStyle} marginLeft={2} xl={2} marginTop={2} lg={3} md={3.5} sm={4} xs={7}>
+            <Typography style={{ fontSize: "25px", fontWeight: "bold", color: "#2D3142" }}>
+              Crear Usuario
             </Typography>
 
             <CardMedia
               component="img"
               src={imagen2}
               alt="green"
-              height="350px"
-              width="300px"
+              sx={styleimgcard}
 
             />
-             <Link to="/CrearUsuario" style={{ textDecoration: "none" }}>
-             <Button size="large" sx={button} variant="contained">Crear</Button>
+            <Link to="/CrearUsuario" style={{ textDecoration: "none" }}>
+              <Button size="large" sx={button} variant="contained">Crear</Button>
             </Link>
-           
+
 
           </Grid>
 
 
-          <Grid container  sx={useStyle} marginLeft={2} marginTop={2} xl={3} lg={3} md={3.5} sm={8} xs={9} >
+          <Grid container sx={useStyle} marginLeft={2} marginTop={2} xl={2} lg={3} md={3.5} sm={4} xs={7} >
 
-            <Typography style={{ fontSize: "30px", fontWeight: "bold", color: "#2D3142" }}>
+            <Typography style={{ fontSize: "25px", fontWeight: "bold", color: "#2D3142" }}>
               Semestre
             </Typography>
 
@@ -110,15 +129,14 @@ const Admin = () => {
               component="img"
               src={imagen3}
               alt="green"
-              height="350px"
-              width="300px"
+              sx={styleimgcard}
 
             />
 
             <Link to="/Semestre" style={{ textDecoration: "none" }}>
-            <Button size="large" sx={button} variant="contained">Agendar</Button>
+              <Button size="large" sx={button} variant="contained">Agendar</Button>
             </Link>
-            
+
           </Grid>
 
 

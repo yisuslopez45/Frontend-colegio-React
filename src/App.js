@@ -12,6 +12,7 @@ import CrearRegistro from "./components/CrearRegistro";
 import EditarRegistro from "./components/EditarRegistro";
 import Docente from "./components/Docente";
 import { SnackbarProvider } from "notistack";
+import Footer from "./components/Footer";
 
 const App = () => {
   return <>
@@ -37,9 +38,6 @@ const App = () => {
 
     </SnackbarProvider>
       
-
-
-
     </BrowserRouter>
 
 
