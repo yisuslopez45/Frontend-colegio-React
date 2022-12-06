@@ -4,14 +4,14 @@ la creación de una aplicación en React, usando la librería de Material UI.
 Es una aplicacion para la administracion de Docentes, materias y asistencias.
 Maneja dos perfiles, Administrador y Docente
 
-FRONT-END
+FRONT-END : 
 *React
 *Material IU
 *CSS
 *Redux
 *HTML
 
-BACKEND
+BACKEND : 
 *NodeJs(Express)
 *ORM prisma
 *API-REST
