@@ -18,3 +18,5 @@ BACKEND :
 *PostgreSQL
 
 [![Pantalla-Admin.png](https://i.postimg.cc/zBtDRytf/Pantalla-Admin.png)](https://postimg.cc/JDXCfzWw)
+
+[![Captura-de-pantalla-84.png](https://i.postimg.cc/0QgnQNGq/Captura-de-pantalla-84.png)](https://postimg.cc/WDngYTf9)
