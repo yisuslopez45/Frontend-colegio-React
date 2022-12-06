@@ -17,6 +17,10 @@ BACKEND :
 *API-REST
 *PostgreSQL
 
+Perfil Admin
+
 [![Pantalla-Admin.png](https://i.postimg.cc/zBtDRytf/Pantalla-Admin.png)](https://postimg.cc/JDXCfzWw)
 
-[![Captura-de-pantalla-84.png](https://i.postimg.cc/0QgnQNGq/Captura-de-pantalla-84.png)](https://postimg.cc/WDngYTf9)
+Perfil Docente
+
+[![Captura-de-pantalla-170.png](https://i.postimg.cc/J7XnZzb2/Captura-de-pantalla-170.png)](https://postimg.cc/z3J8152C)
