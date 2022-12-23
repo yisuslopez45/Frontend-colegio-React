@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axiosClient from '../config/AxiosClient';
 import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
@@ -51,6 +52,7 @@ const steps = ['Registro datos básicos', 'Registro datos personales '];
 const CrearUsuario = () => {
 
     const [listProfesion, setlistaProfesion] = useState([])
+    const {  token } = useSelector(state => state.login)
     const [listMaterias, setlistaMaterias] = useState([])
     const [banderaPassword, setBanderaPassword] = useState(false)
     const [notificacion, setNotificacion] = useState(0)
@@ -81,7 +83,7 @@ const CrearUsuario = () => {
     const queryGet = async (url, funcion) => {
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.get(url);
 
             funcion(data.data)
@@ -95,7 +97,7 @@ const CrearUsuario = () => {
     const queryPost = async (url) => {
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.post('/crearUsuario', datosUsuario);
 
             if (data.code === "1") {

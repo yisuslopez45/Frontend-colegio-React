@@ -10,6 +10,7 @@ import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
 import { green } from '@mui/material/colors';
 import { Box } from '@mui/system'
+import { useSelector } from 'react-redux'
 
 
 
@@ -52,6 +53,7 @@ const button2 = {
 const AsignarDocente = () => {
 
     const [listMaterias, setlistaMaterias] = useState([])
+    const { token } = useSelector(state => state.login)
     const [docentes, setDocentes] = useState([])
     const { enqueueSnackbar } = useSnackbar();
     const [loading2, setLoading] = React.useState(false);
@@ -72,7 +74,7 @@ const AsignarDocente = () => {
     const queryGet = async (url, funcion) => {
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.get(url);
 
             funcion(data.data)
@@ -92,22 +94,14 @@ const AsignarDocente = () => {
             enqueueSnackbar("Campos vacíos", { variant: 'error' })
         }
 
-
-        // if (!loading2) {
-        //     setSuccess(false);
-        //     setLoading(true);
-        // }
     };
 
-    // const enviarFormulario = () => {
-    // }
 
     const queryPost = async () => {
 
-        console.log(datosUsuario)
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.post("/crearProSemestre", datosUsuario);
 
             console.log(data)

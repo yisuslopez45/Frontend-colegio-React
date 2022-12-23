@@ -8,7 +8,8 @@ const initialState = {
     message: '',
     code: '',
     error: '',
-    rol: ''
+    rol: '',
+    token :''
 
 }
 
@@ -28,7 +29,8 @@ export default function loginReducers(state = initialState, action) {
                 message: action.payload.msg,
                 rol: action.payload.idRol,
                 code: '1',
-                id_usuario: action.payload.id_usuario
+                id_usuario: action.payload.id_usuario,
+                token : action.payload.tokenGenerado
 
             }
         case LOGIN_START_ERROR:

@@ -49,7 +49,7 @@ const CrearRegistro = () => {
     const [notificacion, setNotificacion] = useState(0)
     const { enqueueSnackbar } = useSnackbar(); 
 
-    const { id_usuario } = useSelector(state => state.login)
+    const { id_usuario, token } = useSelector(state => state.login)
 
     const [datos, setDatos] = useState({
         id_docente: id_usuario,
@@ -73,6 +73,7 @@ const CrearRegistro = () => {
     const queryGet = async (url, funcion) => {
 
         try {
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.get(url);
             funcion(data.data)
 
@@ -104,7 +105,7 @@ const CrearRegistro = () => {
     const queryPost = async (url) => {
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.post('/crearRegistro', datos);
 
             console.log(data)

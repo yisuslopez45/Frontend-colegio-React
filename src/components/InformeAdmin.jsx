@@ -6,6 +6,7 @@ import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, Typography, u
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axiosClient from '../config/AxiosClient';
 import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
@@ -43,6 +44,7 @@ const InformeAdmin = () => {
     const [cedula, setCedula] = useState(0)
     const [data, setData] = useState({})
     const [info, setInfo] = useState([])
+    const {  token } = useSelector(state => state.login)
 
 
     const theme = useTheme();
@@ -52,7 +54,7 @@ const InformeAdmin = () => {
     const queryGet = async (url, funcion) => {
 
         try {
-            //axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + userT?.jwt
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.get(url);
             console.log(data.data)
             funcion(data.data)

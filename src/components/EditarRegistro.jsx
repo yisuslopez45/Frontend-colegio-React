@@ -1,11 +1,10 @@
 
-import { Alert, Button, Grid, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Button, Grid, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 // import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react'
-import imagenSend from '../img/Checklist_Two Color.svg'
 import Footer from './Footer'
 import EditarRegistroDialog from './Dialog/EditarRegistroDialog';
 
@@ -47,7 +46,7 @@ const EditarRegistro = () => {
     const [modal2, setModal2] = useState(false)
     const [rowsData, setRows] = useState([])
     const [filas, setFilas] = useState([])
-    const { id_usuario } = useSelector(state => state.login)
+    const { id_usuario, token } = useSelector(state => state.login)
     const [bandera, setBandera] = useState(0)
 
     const theme = useTheme();
@@ -57,6 +56,7 @@ const EditarRegistro = () => {
     const queryGet = async (url, funcion) => {
 
         try {
+            axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
             const { data } = await axiosClient.get(url);
             funcion(data.data)
 
